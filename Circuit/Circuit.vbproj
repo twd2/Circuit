@@ -8,9 +8,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1CB5357B-7694-40CA-BD85-FDDA484B5D9E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>电路图.My.MyApplication</StartupObject>
-    <RootNamespace>电路图</RootNamespace>
-    <AssemblyName>电路图</AssemblyName>
+    <StartupObject>Circuit.My.MyApplication</StartupObject>
+    <RootNamespace>Circuit</RootNamespace>
+    <AssemblyName>Circuit</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>电路图.xml</DocumentationFile>
+    <DocumentationFile>Circuit.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>电路图.xml</DocumentationFile>
+    <DocumentationFile>Circuit.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>

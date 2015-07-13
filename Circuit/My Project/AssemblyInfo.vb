@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' 查看程序集特性的值
 
-<Assembly: AssemblyTitle("电路图")> 
+<Assembly: AssemblyTitle("Circuit")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("Wandai")> 
-<Assembly: AssemblyProduct("电路图")> 
-<Assembly: AssemblyCopyright("Copyright © Wandai Inc. 2011")> 
+<Assembly: AssemblyProduct("Circuit")> 
+<Assembly: AssemblyCopyright("Copyright © Wandai Inc. 2011-2015")> 
 <Assembly: AssemblyTrademark("Wandai")> 
 
 <Assembly: ComVisible(False)>
