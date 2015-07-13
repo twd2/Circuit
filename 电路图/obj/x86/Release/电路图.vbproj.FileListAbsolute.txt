@@ -1,0 +1,12 @@
+H:\0程序\dotNet\电路图\电路图\bin\Release\电路图.exe
+H:\0程序\dotNet\电路图\电路图\bin\Release\电路图.pdb
+H:\0程序\dotNet\电路图\电路图\bin\Release\电路图.xml
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\ResolveAssemblyReference.cache
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\电路图.Form1.resources
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\电路图.Resources.resources
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\GenerateResource-ResGen.read.1.tlog
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\GenerateResource-ResGen.read.4.tlog
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\GenerateResource-ResGen.write.1.tlog
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\电路图.exe
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\电路图.xml
+H:\0程序\dotNet\电路图\电路图\obj\x86\Release\电路图.pdb
