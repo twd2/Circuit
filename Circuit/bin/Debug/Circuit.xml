@@ -6,7 +6,14 @@ Circuit
 </name>
 </assembly>
 <members>
-<member name="P:Circuit.My.Resources.Resources.ResourceManager">
+<member name="M:Circuit.ElementsPanel.ToRelative(System.Drawing.Point)">
+	<summary>
+ 把在PictureBox的坐标转换为相对于Origin的坐标
+ </summary>
+	<param name="p">PictureBox的坐标</param>
+	<returns>相对于Origin的坐标</returns>
+	<remarks></remarks>
+</member><member name="P:Circuit.My.Resources.Resources.ResourceManager">
 	<summary>
   返回此类使用的缓存的 ResourceManager 实例。
 </summary>
@@ -48,6 +55,10 @@ Circuit
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member><member name="P:Circuit.My.Resources.Resources.vR">
+	<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member><member name="P:Circuit.My.Resources.Resources.vS">
 	<summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>

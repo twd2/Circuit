@@ -10,3 +10,12 @@ G:\Program\dotNet\电路图\电路图\obj\x86\Debug\Circuit.pdb
 G:\Program\dotNet\电路图\Circuit\obj\x86\Debug\Circuit.exe
 G:\Program\dotNet\电路图\Circuit\obj\x86\Debug\Circuit.xml
 G:\Program\dotNet\电路图\Circuit\obj\x86\Debug\Circuit.pdb
+G:\Program\dotNet\Circuit\Circuit\obj\x86\Debug\Circuit.exe
+G:\Program\dotNet\Circuit\Circuit\obj\x86\Debug\Circuit.xml
+G:\Program\dotNet\Circuit\Circuit\obj\x86\Debug\Circuit.pdb
+G:\Program\dotNet\Circuit\Circuit\bin\Debug\Circuit.exe
+G:\Program\dotNet\Circuit\Circuit\bin\Debug\Circuit.pdb
+G:\Program\dotNet\Circuit\Circuit\bin\Debug\Circuit.xml
+G:\Program\dotNet\Circuit\Circuit\obj\x86\Debug\Circuit.frmMain.resources
+G:\Program\dotNet\Circuit\Circuit\obj\x86\Debug\Circuit.Resources.resources
+G:\Program\dotNet\Circuit\Circuit\obj\x86\Debug\Circuit.vbproj.GenerateResource.Cache
