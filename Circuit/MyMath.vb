@@ -10,7 +10,7 @@
     End Function
 
     ''' <summary>
-    ''' 点到线短的距离的平方
+    ''' 点到线段的距离的平方
     ''' </summary>
     ''' <param name="a">线段一个端点</param>
     ''' <param name="b">线段一个端点</param>
@@ -54,7 +54,7 @@
 
 
     ''' <summary>
-    ''' 点到线短的距离
+    ''' 点到线段的距离
     ''' </summary>
     ''' <param name="a">线段一个端点</param>
     ''' <param name="b">线段一个端点</param>
