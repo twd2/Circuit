@@ -6,7 +6,25 @@ Circuit
 </name>
 </assembly>
 <members>
-<member name="M:Circuit.ElementsPanel.ToRelative(System.Drawing.Point)">
+<member name="M:Circuit.MyMath.PointToLine2(System.Drawing.Point,System.Drawing.Point,System.Drawing.Point)">
+	<summary>
+ 点到线短的距离的平方
+ </summary>
+	<param name="a">线段一个端点</param>
+	<param name="b">线段一个端点</param>
+	<param name="p">待测点</param>
+	<returns>距离的平方</returns>
+	<remarks></remarks>
+</member><member name="M:Circuit.MyMath.PointToLine(System.Drawing.Point,System.Drawing.Point,System.Drawing.Point)">
+	<summary>
+ 点到线短的距离
+ </summary>
+	<param name="a">线段一个端点</param>
+	<param name="b">线段一个端点</param>
+	<param name="p">待测点</param>
+	<returns>距离</returns>
+	<remarks></remarks>
+</member><member name="M:Circuit.ElementsPanel.ToRelative(System.Drawing.Point)">
 	<summary>
  把在PictureBox的坐标转换为相对于Origin的坐标
  </summary>

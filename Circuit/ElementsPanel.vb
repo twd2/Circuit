@@ -5,10 +5,10 @@
         MovingOrigin
         PendingMovingElement
         MovingElement
-        PendingDrawLine
-        DrawingLine
-        PendingDeleteLine
-        DeletingLine
+        PendingDrawWire
+        DrawingWire
+        PendingDeleteWire
+        DeletingWire
     End Enum
 
     Public WithEvents picMain As PictureBox
@@ -76,15 +76,15 @@
     End Sub
 
     Public Sub DrawWire()
-        _state = PanelState.PendingDrawLine
+        _state = PanelState.PendingDrawWire
     End Sub
 
 #Region "UI"
     Private Sub onDoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles picMain.DoubleClick
         Debug.Print("dc")
-        'If SelectedID >= 0 AndAlso Not DrawingLine Then
-        '    Elements(SelectedID).Rotation = Not Elements(SelectedID).Rotation
-        'End If
+        If _selectedId > 0 Then
+
+        End If
     End Sub
 
 
@@ -124,31 +124,34 @@
                 Utilities.Info("No element selected, changing state to MovingOrigin")
                 _state = PanelState.MovingOrigin
                 [Select](-1)
+                picMain.Cursor = Cursors.Hand
             Else
                 If ids.Count = 1 Then
                     Utilities.Info("One element selected, changing state to MovingElement")
                     _state = PanelState.MovingElement
                     [Select](ids(0))
+                    picMain.Cursor = Cursors.SizeAll
                 Else
                     Utilities.Info("More than one elements selected, waiting for menuPendingSelect to be clicked")
                     Dim menuPendingSelect As New ContextMenuStrip
                     menuPendingSelect.Hide()
                     menuPendingSelect.Items.Clear()
                     For i = 0 To ids.Count - 1
-                        Dim tsmi As New ToolStripMenuItem(String.Format("{0} (ID={1})", Elements(ids(i)).Title, ids(i)))
-                        tsmi.Tag = ids(i)
-                        AddHandler tsmi.Click, AddressOf onMenuItemClicked
-                        menuPendingSelect.Items.Add(tsmi)
+                        Dim item As New ToolStripMenuItem(String.Format("{0} (ID={1})", Elements(ids(i)).Title, ids(i)))
+                        item.Tag = ids(i)
+                        AddHandler item.Click, AddressOf onMenuItemClicked
+                        menuPendingSelect.Items.Add(item)
                     Next
                     _state = PanelState.PendingMovingElement
                     menuPendingSelect.Show(picMain, e.X, e.Y)
                 End If
             End If
-        ElseIf _state = PanelState.PendingDrawLine Then
+        ElseIf _state = PanelState.PendingDrawWire Then
             Utilities.Info("State is PendingDrawLine, starting drawing line")
-            _state = PanelState.DrawingLine
+            _state = PanelState.DrawingWire
             _path.Clear()
             _path.Add(p)
+            picMain.Cursor = Cursors.Cross
         ElseIf _state = PanelState.PendingMovingElement Then
             Utilities.Info("State is PendingMovingElement, changing it to none")
             _state = PanelState.None
@@ -161,12 +164,13 @@
         If Not TypeOf sender Is ToolStripMenuItem Then
             Return
         End If
-        Dim tsmi = DirectCast(sender, ToolStripMenuItem)
-        Debug.Assert(TypeOf tsmi.Tag Is Integer)
-        [Select](DirectCast(tsmi.Tag, Integer))
+        Dim item = DirectCast(sender, ToolStripMenuItem)
+        Debug.Assert(TypeOf item.Tag Is Integer)
+        [Select](DirectCast(item.Tag, Integer))
         Utilities.Info("menuPendingSelect clicked")
         If _state = PanelState.PendingMovingElement Then
             _state = PanelState.MovingElement
+            picMain.Cursor = Cursors.SizeAll
             Utilities.Info("State is PendingMovingElement, so change it to MovingElement")
         End If
         Render()
@@ -185,12 +189,11 @@
 
         Select Case _state
             Case PanelState.MovingOrigin
-                picMain.Cursor = Cursors.SizeAll
                 Origin = _oldObjectLocation + mouseDelta
             Case PanelState.MovingElement
                 Debug.Assert(_selectedId >= 0)
                 Elements(_selectedId).Location = _oldObjectLocation + mouseDelta
-            Case PanelState.DrawingLine
+            Case PanelState.DrawingWire
                 _path.Add(p)
         End Select
         Render()
@@ -206,14 +209,16 @@
             Return
         End If
 
-        If _state = PanelState.DrawingLine Then
+        If _state = PanelState.DrawingWire Then
             _path.Add(p)
-            Dim wlocation = _path(0)
-            For i = 0 To _path.Count - 1
-                _path(i) -= wlocation
-            Next
-            Dim w As New Wire(_path, wlocation)
-            Elements.Add(w)
+            If _path.Count >= 3 Then
+                Dim wlocation = _path(0)
+                For i = 0 To _path.Count - 1
+                    _path(i) -= wlocation
+                Next
+                Dim w As New Wire(_path, wlocation)
+                Elements.Add(w)
+            End If
             _path.Clear()
         End If
 
@@ -233,6 +238,18 @@
     ''' <remarks></remarks>
     Private Function ToRelative(p As Point) As Point
         Return p - Origin
+    End Function
+
+    Public Sub DeleteSelected()
+        If _selectedId < 0 Then
+            Return
+        End If
+        Elements.RemoveAt(_selectedId)
+        [Select](-1)
+    End Sub
+
+    Public Function ViewableBoundary() As Rectangle
+        Return New Rectangle(Point.Empty - Origin, picMain.Size)
     End Function
 #End Region
 

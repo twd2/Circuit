@@ -149,7 +149,7 @@ Public MustInherit Class Element
         g.TranslateTransform(_location.X, _location.Y)
         g.RotateTransform(RotationAngleToAngle(_rotation))
 
-        g.DrawRectangle(Pens.Gray, OriginalBoundary)
+        g.DrawRectangle(Pens.Blue, OriginalBoundary)
 
         g.Restore(state)
     End Sub

@@ -40,7 +40,7 @@ Partial Class frmMain
         Me.MainBoxPoint = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.OriPoint = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.btnLine = New System.Windows.Forms.Button()
+        Me.btnWire = New System.Windows.Forms.Button()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.PictureBox8 = New System.Windows.Forms.PictureBox()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
@@ -119,7 +119,7 @@ Partial Class frmMain
         '删除ToolStripMenuItem
         '
         Me.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem"
-        Me.删除ToolStripMenuItem.Size = New System.Drawing.Size(175, 24)
+        Me.删除ToolStripMenuItem.Size = New System.Drawing.Size(108, 24)
         Me.删除ToolStripMenuItem.Text = "删除"
         '
         'btnAutoNo
@@ -189,15 +189,15 @@ Partial Class frmMain
         Me.OriPoint.Size = New System.Drawing.Size(45, 20)
         Me.OriPoint.Text = "(0, 0)"
         '
-        'btnLine
+        'btnWire
         '
-        Me.btnLine.Location = New System.Drawing.Point(425, 586)
-        Me.btnLine.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnLine.Name = "btnLine"
-        Me.btnLine.Size = New System.Drawing.Size(100, 25)
-        Me.btnLine.TabIndex = 14
-        Me.btnLine.Text = "导线"
-        Me.btnLine.UseVisualStyleBackColor = True
+        Me.btnWire.Location = New System.Drawing.Point(425, 586)
+        Me.btnWire.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnWire.Name = "btnWire"
+        Me.btnWire.Size = New System.Drawing.Size(100, 25)
+        Me.btnWire.TabIndex = 14
+        Me.btnWire.Text = "导线"
+        Me.btnWire.UseVisualStyleBackColor = True
         '
         'PictureBox9
         '
@@ -348,7 +348,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.PictureBox9)
         Me.Controls.Add(Me.PictureBox8)
         Me.Controls.Add(Me.PictureBox7)
-        Me.Controls.Add(Me.btnLine)
+        Me.Controls.Add(Me.btnWire)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.PropertyGrid1)
         Me.Controls.Add(Me.picMain)
@@ -405,7 +405,7 @@ Partial Class frmMain
     Friend WithEvents MainBoxPoint As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents OriPoint As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents btnLine As System.Windows.Forms.Button
+    Friend WithEvents btnWire As System.Windows.Forms.Button
     Friend WithEvents PictureBox7 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox8 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox9 As System.Windows.Forms.PictureBox

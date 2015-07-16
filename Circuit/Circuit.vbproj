@@ -119,6 +119,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="MyMath.vb" />
     <Compile Include="Utilities.vb" />
     <Compile Include="ValueChangedEventArgs.vb" />
     <Compile Include="Wire.vb" />

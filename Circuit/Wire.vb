@@ -46,11 +46,9 @@
     End Sub
 
     Public Overrides Function Contains(p0 As Point) As Boolean
-        For i = 0 To Points.Count - 1
-            Dim p1 = Points(i) + _location
-            Dim deltaP = p1 - p0
-            Dim distance2 = deltaP.X * deltaP.X + deltaP.Y * deltaP.Y
-            If distance2 <= 25 Then
+        Dim p = p0 - _location
+        For i = 1 To Points.Count - 1
+            If MyMath.PointToLine2(Points(i - 1), Points(i), p) <= 25 Then
                 Return True
             End If
         Next
