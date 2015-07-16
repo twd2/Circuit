@@ -137,7 +137,11 @@
                     menuPendingSelect.Hide()
                     menuPendingSelect.Items.Clear()
                     For i = 0 To ids.Count - 1
-                        Dim item As New ToolStripMenuItem(String.Format("{0} (ID={1})", Elements(ids(i)).Title, ids(i)))
+                        Dim text = Elements(ids(i)).Title
+                        If text = "" Then
+                            text = Elements(ids(i)).Type()
+                        End If
+                        Dim item As New ToolStripMenuItem(String.Format("{0} (ID={1})", text, ids(i)))
                         item.Tag = ids(i)
                         AddHandler item.Click, AddressOf onMenuItemClicked
                         menuPendingSelect.Items.Add(item)

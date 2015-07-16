@@ -111,7 +111,7 @@ Public MustInherit Class Element
     Friend MustOverride ReadOnly Property OriginalSize As Size
 
     Public Overridable Function Boundary() As Rectangle
-        Return New Rectangle(New Point(Location.X - Size.Width / 2, Location.Y - Size.Height / 2), Size)
+        Return New Rectangle(New Point(_location.X - Size.Width / 2, _location.Y - Size.Height / 2), Size)
     End Function
 
     Public Overridable Function OriginalBoundary() As Rectangle
@@ -136,7 +136,9 @@ Public MustInherit Class Element
 
         g.Restore(state)
 
-        g.DrawString(_title, New Font("Consolas", 13), Brushes.Black, Boundary.Location)
+        If _title <> "" Then
+            g.DrawString(_title, New Font("Consolas", 13), Brushes.Black, Boundary.Location)
+        End If
     End Sub
 
     Protected MustOverride Sub InternalDraw(g As Graphics)

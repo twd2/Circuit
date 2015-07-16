@@ -11,7 +11,36 @@
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(0)})
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(Points.Count - 1)})
         UpdateConnectorLocation()
+
+        CalcBoundary()
     End Sub
+
+    Private _boundary As Rectangle
+
+    Private Sub CalcBoundary()
+        Dim xmin = Points(0).X, xmax = Points(0).X, ymin = Points(0).Y, ymax = Points(0).Y
+        For i = 1 To Points.Count - 1
+            Dim p = Points(i)
+            If p.X < xmin Then
+                xmin = p.X
+            End If
+            If p.X > xmax Then
+                xmax = p.X
+            End If
+            If p.Y < ymin Then
+                ymin = p.Y
+            End If
+            If p.Y > ymax Then
+                ymax = p.Y
+            End If
+        Next
+
+        _boundary = New Rectangle(xmin, ymin, xmax - xmin, ymax - ymin)
+    End Sub
+
+    Public Overrides Function OriginalBoundary() As Rectangle
+        Return _boundary
+    End Function
 
     Public Overrides Property Rotation As RotationAngle
         Get
@@ -45,7 +74,17 @@
         g.Restore(state)
     End Sub
 
+    Public Overrides Function Boundary() As Rectangle
+        Dim b = _boundary
+        b.Location += _location
+        Return b
+    End Function
+
     Public Overrides Function Contains(p0 As Point) As Boolean
+        If Not Boundary.Contains(p0) Then
+            Return False
+        End If
+
         Dim p = p0 - _location
         For i = 1 To Points.Count - 1
             If MyMath.PointToLine2(Points(i - 1), Points(i), p) <= 25 Then
