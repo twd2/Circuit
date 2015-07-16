@@ -3,11 +3,13 @@
 
     Public Sub New(title As String, location As Point)
         MyBase.New(title, location)
+
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = New Point(-35, 0)})
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = New Point(35, 0)})
+        UpdateConnectorLocation()
     End Sub
 
-    Public Overrides ReadOnly Property OriginalSize As Size
+    Friend Overrides ReadOnly Property OriginalSize As Size
         Get
             Return New Size(70, 50)
         End Get
@@ -23,12 +25,37 @@
         Dim strSize = g.MeasureString(str, font)
 
         g.DrawString(str, font, Brushes.Black, -strSize.Width / 2, -strSize.Height / 2)
-        g.DrawLine(Pens.Black, -35, 0, -25, 0)
-        g.DrawLine(Pens.Black, 25, 0, 35, 0)
+
+        Dim myPen As Pen
+
+        If _connectors(0).Value Then
+            myPen = Pens.Red
+        Else
+            myPen = Pens.Black
+        End If
+        g.DrawLine(myPen, -35, 0, -25, 0)
+
+        If _connectors(1).Value Then
+            myPen = Pens.Red
+        Else
+            myPen = Pens.Black
+        End If
+        g.DrawLine(myPen, 25, 0, 35, 0)
+
     End Sub
 
-    Public Overrides Sub Update(sender As Connector)
+    Public Overrides Sub UpdateValue(valueChangedConnector As Connector)
+        If valueChangedConnector.To IsNot Nothing Then
+            valueChangedConnector.To.Value = valueChangedConnector.Value
+        Else
+            valueChangedConnector.Value = False
+        End If
 
+        If valueChangedConnector.Equals(_connectors(0)) Then
+            _connectors(1).Value = valueChangedConnector.Value
+        Else
+            _connectors(0).Value = valueChangedConnector.Value
+        End If
     End Sub
 
 End Class

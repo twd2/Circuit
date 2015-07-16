@@ -47,6 +47,27 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Circuit.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Circuit.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -74,7 +95,6 @@
     <Compile Include="Elements\Ammeter.vb" />
     <Compile Include="DigitalEngine.vb" />
     <Compile Include="ElementsPanel.vb" />
-    <Compile Include="IConnectable.vb" />
     <Compile Include="Connector.vb" />
     <Compile Include="Element.vb" />
     <Compile Include="frmMain.vb">
@@ -84,8 +104,6 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IDrawable.vb" />
-    <Compile Include="Line.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -103,6 +121,7 @@
     </Compile>
     <Compile Include="Utilities.vb" />
     <Compile Include="ValueChangedEventArgs.vb" />
+    <Compile Include="Wire.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmMain.resx">

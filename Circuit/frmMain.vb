@@ -7,6 +7,7 @@ Public Class frmMain
 
 
     Private _panel As ElementsPanel
+    Private _engine As DigitalEngine
 
     Private WithEvents Printer As New PrintDocument
     'Dim Elements As New List(Of Element)
@@ -340,9 +341,7 @@ Public Class frmMain
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLine.Click
-        'CanDrawLine = Not CanDrawLine
-        'DrawingLine = DrawingLine AndAlso CanDrawLine
-        'picMain.Cursor = Cursors.Default
+        _panel.DrawWire()
     End Sub
 
     Private Sub 新建ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 新建ToolStripMenuItem.Click
@@ -370,7 +369,7 @@ Public Class frmMain
         'ReDraw()
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckedChanged
+    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'CanDrawLine = Not CanDrawLine
         'DrawingLine = DrawingLine AndAlso CanDrawLine
         'picMain.Cursor = Cursors.Default
@@ -456,5 +455,22 @@ Public Class frmMain
         Throw New NotImplementedException
         'Printer.DocumentName = "电路图"
         'Printer.Print()
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If _engine IsNot Nothing Then
+            Return
+        End If
+        _engine = New DigitalEngine()
+        _engine.Elements = _panel.Elements
+        _engine.Start()
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+        If _engine Is Nothing Then
+            Return
+        End If
+        _engine.Stop()
+        _engine = Nothing
     End Sub
 End Class

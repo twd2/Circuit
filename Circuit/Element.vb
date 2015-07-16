@@ -1,8 +1,6 @@
 ﻿Imports System.ComponentModel
 
 Public MustInherit Class Element
-    Implements IConnectable
-    Implements IDrawable
 
     Public Enum RotationAngle '顺时针
         D0
@@ -31,6 +29,7 @@ Public MustInherit Class Element
         End Get
         Set(ByVal value As Point)
             _location = value
+            UpdateConnectorLocation()
         End Set
     End Property
 
@@ -54,39 +53,15 @@ Public MustInherit Class Element
 
     Protected _rotation As RotationAngle
     <DisplayName("旋转"), CategoryAttribute("常规"), DescriptionAttribute("设置顺时针旋转角度"), DefaultValue(RotationAngle.D0)> _
-    Public Property Rotation() As RotationAngle
+    Public Overridable Property Rotation() As RotationAngle
         Get
             Return _rotation
         End Get
         Set(ByVal value As RotationAngle)
             _rotation = value
+            UpdateConnectorLocation()
         End Set
     End Property
-
-    'Shared Function GetImage(ByVal EleType As ElementType) As Image
-    '    Select Case EleType
-    '        Case ElementType.Ammeter
-    '            Return My.Resources.A
-    '        Case ElementType.Light
-    '            Return My.Resources.L
-    '        Case ElementType.Resistor
-    '            Return My.Resources.R
-    '        Case ElementType.Switch
-    '            Return My.Resources.S
-    '        Case ElementType.VariableResistor
-    '            Return My.Resources.vR
-    '        Case ElementType.Voltmeter
-    '            Return My.Resources.V
-    '        Case ElementType.PowerSupply
-    '            Return My.Resources.Ps
-    '        Case ElementType.Bell
-    '            Return My.Resources.B
-    '        Case ElementType.Motor
-    '            Return My.Resources.M
-    '        Case Else
-    '            Return New Bitmap(49, 49)
-    '    End Select
-    'End Function
 
     'Public Shared Function GetAbbr() As String
     '    Throw New NotImplementedException("won't be implemented")
@@ -114,14 +89,14 @@ Public MustInherit Class Element
 
     Protected _connectors As New List(Of Connector)
     <DisplayName("连接点"), CategoryAttribute("常规"), DescriptionAttribute("所有连接点")> _
-    Public ReadOnly Property Connectors As List(Of Connector) Implements IConnectable.Connectors
+    Public ReadOnly Property Connectors As List(Of Connector)
         Get
             Return _connectors
         End Get
     End Property
 
     <DisplayName("占地大小"), CategoryAttribute("常规"), DescriptionAttribute("获取该元件的占地大小")> _
-    Public ReadOnly Property Size As Size
+    Friend ReadOnly Property Size As Size
         Get
             Select Case _rotation
                 Case RotationAngle.D0, RotationAngle.D180
@@ -133,17 +108,21 @@ Public MustInherit Class Element
     End Property
 
     <DisplayName("图形原始大小"), CategoryAttribute("常规"), DescriptionAttribute("获取该元件的图形原始大小")> _
-    Public MustOverride ReadOnly Property OriginalSize As Size
+    Friend MustOverride ReadOnly Property OriginalSize As Size
 
-    Public Function Boundary() As Rectangle
+    Public Overridable Function Boundary() As Rectangle
         Return New Rectangle(New Point(Location.X - Size.Width / 2, Location.Y - Size.Height / 2), Size)
     End Function
 
-    Public Function OriginalBoundary() As Rectangle
+    Public Overridable Function OriginalBoundary() As Rectangle
         Return New Rectangle(New Point(-OriginalSize.Width / 2, -OriginalSize.Height / 2), OriginalSize)
     End Function
 
-    Public Overridable Sub Draw(g As Graphics) Implements IDrawable.Draw
+    Public Overridable Function Contains(p As Point) As Boolean
+        Return Boundary().Contains(p)
+    End Function
+
+    Public Overridable Sub Draw(g As Graphics)
         Dim state = g.Save()
 
         g.TranslateTransform(_location.X, _location.Y)
@@ -151,14 +130,20 @@ Public MustInherit Class Element
 
         InternalDraw(g)
 
+        For i = 0 To _connectors.Count - 1
+            g.FillRectangle(Brushes.Gray, New Rectangle(_connectors(i).OriginalLocation - New Point(2, 2), New Size(4, 4)))
+        Next
+
         g.Restore(state)
+
+        g.DrawString(_title, New Font("Consolas", 13), Brushes.Black, Boundary.Location)
     End Sub
 
     Protected MustOverride Sub InternalDraw(g As Graphics)
 
-    Public MustOverride Sub Update(sender As Connector) Implements IConnectable.UpdateValue
+    Public MustOverride Sub UpdateValue(valueChangedConnector As Connector)
 
-    Public Sub DrawBoundary(g As Graphics) Implements IDrawable.DrawBoundary
+    Public Overridable Sub DrawBoundary(g As Graphics)
         Dim state = g.Save()
 
         g.TranslateTransform(_location.X, _location.Y)
@@ -168,4 +153,30 @@ Public MustInherit Class Element
 
         g.Restore(state)
     End Sub
+
+    ''' <summary>
+    ''' 更新连接器的实际坐标，在初始化以及Rotation或Location变动时应当调用
+    ''' </summary>
+    ''' <remarks></remarks>
+    Protected Sub UpdateConnectorLocation()
+        Dim trans As Func(Of Point, Point)
+        Select Case _rotation
+            Case RotationAngle.D0
+                trans = Function(p As Point) p
+            Case RotationAngle.D90
+                trans = Function(p As Point) New Point(-p.Y, p.X)
+            Case RotationAngle.D180
+                trans = Function(p As Point) New Point(-p.X, -p.Y)
+            Case RotationAngle.D270
+                trans = Function(p As Point) New Point(p.Y, -p.X)
+            Case Else
+                Throw New ArgumentException()
+        End Select
+
+        For i = 0 To _connectors.Count - 1
+            _connectors(i).Location = trans(_connectors(i).OriginalLocation)
+        Next
+    End Sub
+
+
 End Class

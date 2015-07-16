@@ -13,6 +13,11 @@ Circuit
 	<param name="p">PictureBox的坐标</param>
 	<returns>相对于Origin的坐标</returns>
 	<remarks></remarks>
+</member><member name="M:Circuit.Element.UpdateConnectorLocation">
+	<summary>
+ 更新连接器的实际坐标，在初始化以及Rotation或Location变动时应当调用
+ </summary>
+	<remarks></remarks>
 </member><member name="P:Circuit.My.Resources.Resources.ResourceManager">
 	<summary>
   返回此类使用的缓存的 ResourceManager 实例。

@@ -41,7 +41,6 @@ Partial Class frmMain
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.OriPoint = New System.Windows.Forms.ToolStripStatusLabel()
         Me.btnLine = New System.Windows.Forms.Button()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.PictureBox8 = New System.Windows.Forms.PictureBox()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
@@ -52,6 +51,8 @@ Partial Class frmMain
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -190,27 +191,13 @@ Partial Class frmMain
         '
         'btnLine
         '
-        Me.btnLine.Enabled = False
-        Me.btnLine.Location = New System.Drawing.Point(344, 588)
+        Me.btnLine.Location = New System.Drawing.Point(425, 586)
         Me.btnLine.Margin = New System.Windows.Forms.Padding(4)
         Me.btnLine.Name = "btnLine"
         Me.btnLine.Size = New System.Drawing.Size(100, 25)
         Me.btnLine.TabIndex = 14
         Me.btnLine.Text = "导线"
         Me.btnLine.UseVisualStyleBackColor = True
-        Me.btnLine.Visible = False
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(236, 575)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(74, 19)
-        Me.CheckBox1.TabIndex = 18
-        Me.CheckBox1.Text = "画导线"
-        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'PictureBox9
         '
@@ -333,12 +320,31 @@ Partial Class frmMain
         Me.PictureBox2.TabIndex = 2
         Me.PictureBox2.TabStop = False
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(600, 538)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 19
+        Me.Button1.Text = "开始"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(693, 538)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 20
+        Me.Button2.Text = "停止"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(844, 712)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox9)
         Me.Controls.Add(Me.PictureBox8)
         Me.Controls.Add(Me.PictureBox7)
@@ -403,8 +409,9 @@ Partial Class frmMain
     Friend WithEvents PictureBox7 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox8 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox9 As System.Windows.Forms.PictureBox
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents 打开ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PrintToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 
 End Class

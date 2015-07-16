@@ -3,14 +3,16 @@
 Public Class DigitalEngine
 
     Public IsRunning As Boolean = False
-    Public Elements As List(Of IConnectable)
+    Public Elements As New List(Of Element)
 
     '待更新连接器的队列
-    Private Q As Queue(Of Connector)
+    Private Q As New Queue(Of Connector)
+    Private eventEnqueue As New ManualResetEvent(False)
+
 
     Private threadWorker As Thread
 
-    Public Sub AddElement(ic As IConnectable)
+    Public Sub AddElement(ic As Element)
         SyncLock Elements
             If IsRunning Then
                 '如果正在运行则添加Handler
@@ -61,6 +63,10 @@ Public Class DigitalEngine
 
         IsRunning = False
 
+        SyncLock Q
+            eventEnqueue.Set()
+        End SyncLock
+
         threadWorker.Join()
 
         SyncLock Elements
@@ -74,10 +80,13 @@ Public Class DigitalEngine
 
     Public Sub [Next]()
         Dim conn As Connector = Nothing
+        eventEnqueue.WaitOne()
         SyncLock Q
-            conn = Q.Peek()
-            If conn IsNot Nothing Then
-                Q.Dequeue()
+            If Q.Count > 0 Then
+                conn = Q.Dequeue()
+            End If
+            If Q.Count <= 0 Then
+                eventEnqueue.Reset()
             End If
         End SyncLock
         If conn IsNot Nothing Then
@@ -88,16 +97,15 @@ Public Class DigitalEngine
     Private Sub Worker()
         Do While IsRunning
             [Next]()
-            'Thread.Sleep(0)
+            Thread.Sleep(0)
         Loop
     End Sub
 
     Private Sub ValueChangedHandler(sender As Connector, args As ValueChangedEventArgs)
         SyncLock Q
             Q.Enqueue(sender)
+            eventEnqueue.Set()
         End SyncLock
     End Sub
-
-
 
 End Class
