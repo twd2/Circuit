@@ -46,10 +46,11 @@
 
         Dim APdotAB As Double = AP.X * AB.X + AP.Y * AB.Y
 
-        Dim cos2A = (APdotAB * APdotAB) / (d2AP * d2AB)
-        Dim sin2A = 1 - cos2A
+        'Dim cos2A = (APdotAB * APdotAB) / (d2AP * d2AB)
+        'Dim sin2A = 1 - cos2A
 
-        Return d2AP * sin2A
+        'Return d2AP * sin2A
+        Return d2AP - (APdotAB * APdotAB) / d2AB
     End Function
 
 
@@ -107,7 +108,7 @@
 
         Dim sw As New Stopwatch()
 
-        Dim count = 10000000
+        Dim count = 100000000
 
         sw.Reset()
         sw.Start()
@@ -115,8 +116,8 @@
             ans = PointToLine(a, b, c)
         Next
         sw.Stop()
-        Debug.Print(ans)
-        Debug.Print(sw.ElapsedMilliseconds.ToString() + "ms")
+        Console.WriteLine(ans)
+        Console.WriteLine(sw.ElapsedMilliseconds.ToString() + "ms")
 
         sw.Reset()
         sw.Start()
@@ -124,8 +125,8 @@
             ans = PointToLine_way2(a, b, c)
         Next
         sw.Stop()
-        Debug.Print(ans)
-        Debug.Print(sw.ElapsedMilliseconds.ToString() + "ms")
+        Console.WriteLine(ans)
+        Console.WriteLine(sw.ElapsedMilliseconds.ToString() + "ms")
     End Sub
 
 End Class

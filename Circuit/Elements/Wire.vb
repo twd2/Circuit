@@ -10,14 +10,18 @@
 
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(0)})
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(Points.Count - 1)})
-        UpdateConnectorLocation()
 
-        CalcBoundary()
+        CalcOriginalBoundary()
+
+        UpdateProperties()
     End Sub
 
-    Private _boundary As Rectangle
+    Protected Overrides Sub UpdateProperties()
+        _boundary = _originalBoundary
+        _boundary.Location += _location
+    End Sub
 
-    Private Sub CalcBoundary()
+    Private Sub CalcOriginalBoundary()
         Dim xmin = Points(0).X, xmax = Points(0).X, ymin = Points(0).Y, ymax = Points(0).Y
         For i = 1 To Points.Count - 1
             Dim p = Points(i)
@@ -35,12 +39,8 @@
             End If
         Next
 
-        _boundary = New Rectangle(xmin, ymin, xmax - xmin, ymax - ymin)
+        _originalBoundary = New Rectangle(xmin - 5, ymin - 5, 10 + xmax - xmin, 10 + ymax - ymin)
     End Sub
-
-    Public Overrides Function OriginalBoundary() As Rectangle
-        Return _boundary
-    End Function
 
     Public Overrides Property Rotation As RotationAngle
         Get
@@ -67,21 +67,14 @@
         Dim state = g.Save()
 
         g.TranslateTransform(_location.X, _location.Y)
-        g.RotateTransform(RotationAngleToAngle(_rotation))
 
         g.DrawLines(Pens.Blue, Points.ToArray())
 
         g.Restore(state)
     End Sub
 
-    Public Overrides Function Boundary() As Rectangle
-        Dim b = _boundary
-        b.Location += _location
-        Return b
-    End Function
-
     Public Overrides Function Contains(p0 As Point) As Boolean
-        If Not Boundary.Contains(p0) Then
+        If Not _boundary.Contains(p0) Then
             Return False
         End If
 
@@ -93,12 +86,6 @@
         Next
         Return False
     End Function
-
-    Friend Overrides ReadOnly Property OriginalSize As Size
-        Get
-            Return New Size(0, 0)
-        End Get
-    End Property
 
     Public Overrides Sub UpdateValue(valueChangedConnector As Connector)
         If valueChangedConnector.To IsNot Nothing Then

@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports Newtonsoft.Json
 
 Public MustInherit Class Element
 
@@ -29,7 +30,7 @@ Public MustInherit Class Element
         End Get
         Set(ByVal value As Point)
             _location = value
-            UpdateConnectorLocation()
+            UpdateProperties()
         End Set
     End Property
 
@@ -59,7 +60,7 @@ Public MustInherit Class Element
         End Get
         Set(ByVal value As RotationAngle)
             _rotation = value
-            UpdateConnectorLocation()
+            UpdateProperties()
         End Set
     End Property
 
@@ -88,38 +89,47 @@ Public MustInherit Class Element
     'End Function
 
     Protected _connectors As New List(Of Connector)
-    <DisplayName("连接点"), CategoryAttribute("常规"), DescriptionAttribute("所有连接点")> _
+    <DisplayName("连接点"), CategoryAttribute("常规"), DescriptionAttribute("所有连接点"), JsonIgnore> _
     Public ReadOnly Property Connectors As List(Of Connector)
         Get
             Return _connectors
         End Get
     End Property
 
-    <DisplayName("占地大小"), CategoryAttribute("常规"), DescriptionAttribute("获取该元件的占地大小")> _
+    Protected _size As New Size(0, 0)
+
+    <DisplayName("占地大小"), CategoryAttribute("常规"), DescriptionAttribute("获取该元件的占地大小"), JsonIgnore> _
     Friend ReadOnly Property Size As Size
         Get
-            Select Case _rotation
-                Case RotationAngle.D0, RotationAngle.D180
-                    Return OriginalSize
-                Case RotationAngle.D90, RotationAngle.D270
-                    Return New Size(OriginalSize.Height, OriginalSize.Width)
-            End Select
+            Return _size
         End Get
     End Property
 
-    <DisplayName("图形原始大小"), CategoryAttribute("常规"), DescriptionAttribute("获取该元件的图形原始大小")> _
-    Friend MustOverride ReadOnly Property OriginalSize As Size
+    Protected _originalSize As New Size(0, 0)
 
-    Public Overridable Function Boundary() As Rectangle
-        Return New Rectangle(New Point(_location.X - Size.Width / 2, _location.Y - Size.Height / 2), Size)
-    End Function
+    <DisplayName("图形原始大小"), CategoryAttribute("常规"), DescriptionAttribute("获取该元件的图形原始大小"), JsonIgnore> _
+    Friend ReadOnly Property OriginalSize As Size
+        Get
+            Return _originalSize
+        End Get
+    End Property
+
+    Protected _boundary As New Rectangle(0, 0, 0, 0)
+
+    Friend Overridable ReadOnly Property Boundary As Rectangle
+        Get
+            Return _boundary
+        End Get
+    End Property
+
+    Protected _originalBoundary As New Rectangle(0, 0, 0, 0)
 
     Public Overridable Function OriginalBoundary() As Rectangle
-        Return New Rectangle(New Point(-OriginalSize.Width / 2, -OriginalSize.Height / 2), OriginalSize)
+        Return _originalBoundary
     End Function
 
     Public Overridable Function Contains(p As Point) As Boolean
-        Return Boundary().Contains(p)
+        Return _boundary.Contains(p)
     End Function
 
     Public Overridable Sub Draw(g As Graphics)
@@ -137,7 +147,7 @@ Public MustInherit Class Element
         g.Restore(state)
 
         If _title <> "" Then
-            g.DrawString(_title, New Font("Consolas", 13), Brushes.Black, Boundary.Location)
+            g.DrawString(_title, New Font("Consolas", 13), Brushes.Black, _boundary.Location)
         End If
     End Sub
 
@@ -146,21 +156,17 @@ Public MustInherit Class Element
     Public MustOverride Sub UpdateValue(valueChangedConnector As Connector)
 
     Public Overridable Sub DrawBoundary(g As Graphics)
-        Dim state = g.Save()
+        'Dim state = g.Save()
 
-        g.TranslateTransform(_location.X, _location.Y)
-        g.RotateTransform(RotationAngleToAngle(_rotation))
+        'g.TranslateTransform(_location.X, _location.Y)
+        'g.RotateTransform(RotationAngleToAngle(_rotation))
 
-        g.DrawRectangle(Pens.Blue, OriginalBoundary)
+        g.DrawRectangle(Pens.Blue, _boundary)
 
-        g.Restore(state)
+        'g.Restore(state)
     End Sub
 
-    ''' <summary>
-    ''' 更新连接器的实际坐标，在初始化以及Rotation或Location变动时应当调用
-    ''' </summary>
-    ''' <remarks></remarks>
-    Protected Sub UpdateConnectorLocation()
+    Private Function GetTransform() As Func(Of Point, Point)
         Dim trans As Func(Of Point, Point)
         Select Case _rotation
             Case RotationAngle.D0
@@ -174,10 +180,29 @@ Public MustInherit Class Element
             Case Else
                 Throw New ArgumentException()
         End Select
+        Return trans
+    End Function
 
+    ''' <summary>
+    ''' 更新一些属性, 在初始化以及Rotation或Location变动时应当调用
+    ''' </summary>
+    ''' <remarks></remarks>
+    Protected Overridable Sub UpdateProperties()
+        '更新连接器实际位置
+        Dim trans = GetTransform()
         For i = 0 To _connectors.Count - 1
             _connectors(i).Location = trans(_connectors(i).OriginalLocation)
         Next
+
+        '大小
+        Select Case _rotation
+            Case RotationAngle.D0, RotationAngle.D180
+                _size = _originalSize
+            Case RotationAngle.D90, RotationAngle.D270
+                _size = New Size(_originalSize.Height, _originalSize.Width)
+        End Select
+
+        _boundary = New Rectangle(New Point(_location.X - _size.Width / 2, _location.Y - _size.Height / 2), _size)
     End Sub
 
 

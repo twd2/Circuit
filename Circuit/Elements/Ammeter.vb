@@ -4,16 +4,14 @@
     Public Sub New(title As String, location As Point)
         MyBase.New(title, location)
 
+        _originalSize = New Size(70, 50)
+        _originalBoundary = New Rectangle(New Point(-_originalSize.Width / 2, -_originalSize.Height / 2), _originalSize)
+
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = New Point(-35, 0)})
         _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = New Point(35, 0)})
-        UpdateConnectorLocation()
-    End Sub
 
-    Friend Overrides ReadOnly Property OriginalSize As Size
-        Get
-            Return New Size(70, 50)
-        End Get
-    End Property
+        UpdateProperties()
+    End Sub
 
     Protected Overrides Sub InternalDraw(g As Graphics)
         g.FillEllipse(Brushes.White, New Rectangle(-25, -25, 50, 50))

@@ -82,8 +82,16 @@
 #Region "UI"
     Private Sub onDoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles picMain.DoubleClick
         Debug.Print("dc")
-        If _selectedId > 0 Then
+        If _selectedId >= 0 Then
+            Try
+                If Elements(_selectedId).Rotation = Element.RotationAngle.D270 Then
+                    Elements(_selectedId).Rotation = Element.RotationAngle.D0
+                Else
+                    Elements(_selectedId).Rotation += 1
+                End If
+            Catch ex As NotImplementedException
 
+            End Try
         End If
     End Sub
 
