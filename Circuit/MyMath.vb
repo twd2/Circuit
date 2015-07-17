@@ -1,9 +1,44 @@
 ﻿Public Class MyMath
 
+    ''' <summary>
+    ''' 向量的模
+    ''' </summary>
+    ''' <param name="p">向量的坐标</param>
+    ''' <returns>模</returns>
+    ''' <remarks></remarks>
+    Public Shared Function Distance(p As Point) As Double
+        Return Math.Sqrt(p.X * p.X + p.Y * p.Y)
+    End Function
+
+    ''' <summary>
+    ''' 两点间距离
+    ''' </summary>
+    ''' <param name="a">一个点</param>
+    ''' <param name="b">另外一个点</param>
+    ''' <returns>距离</returns>
+    ''' <remarks></remarks>
+    Public Shared Function Distance(a As Point, b As Point) As Double
+        Dim delta = a - b
+        Return Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y)
+    End Function
+
+    ''' <summary>
+    ''' 向量的模的平方
+    ''' </summary>
+    ''' <param name="p">向量的坐标</param>
+    ''' <returns>模的平方</returns>
+    ''' <remarks></remarks>
     Public Shared Function Distance2(p As Point) As Integer
         Return p.X * p.X + p.Y * p.Y
     End Function
 
+    ''' <summary>
+    ''' 两点间距离的平方
+    ''' </summary>
+    ''' <param name="a">一个点</param>
+    ''' <param name="b">另外一个点</param>
+    ''' <returns>距离的平方</returns>
+    ''' <remarks></remarks>
     Public Shared Function Distance2(a As Point, b As Point) As Integer
         Dim delta = a - b
         Return delta.X * delta.X + delta.Y * delta.Y
