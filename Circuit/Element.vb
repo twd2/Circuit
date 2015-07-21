@@ -124,12 +124,22 @@ Public MustInherit Class Element
 
     Protected _originalBoundary As New Rectangle(0, 0, 0, 0)
 
-    Public Overridable Function OriginalBoundary() As Rectangle
-        Return _originalBoundary
-    End Function
+    Friend Overridable ReadOnly Property OriginalBoundary As Rectangle
+        Get
+            Return _originalBoundary
+        End Get
+    End Property
 
     Public Overridable Function Contains(p As Point) As Boolean
         Return _boundary.Contains(p)
+    End Function
+
+    Public Function GetDescription() As String
+        Dim text = _title
+        If text = "" Then
+            text = Type
+        End If
+        Return text
     End Function
 
     Public Overridable Sub Draw(g As Graphics)
@@ -187,7 +197,7 @@ Public MustInherit Class Element
     ''' 更新一些属性, 在初始化以及Rotation或Location变动时应当调用
     ''' </summary>
     ''' <remarks></remarks>
-    Protected Overridable Sub UpdateProperties()
+    Public Overridable Sub UpdateProperties()
         '更新连接器实际位置
         Dim trans = GetTransform()
         For i = 0 To _connectors.Count - 1

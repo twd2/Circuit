@@ -2,23 +2,63 @@
 Imports System.Text
 Imports System.Xml
 Imports System.Drawing.Printing
+Imports System.Threading
 
 Public Class frmMain
-
 
     Private _panel As ElementsPanel
     Private _engine As DigitalEngine
 
     Private WithEvents Printer As New PrintDocument
 
+    Private _renderThread As Thread
+    Private _isRunning As Boolean = False
+    Private _lastFPS As Integer = 0
+    Private _lastFPSTime As DateTime = DateTime.Now
+
+    Public Sub StartRendering()
+        If _isRunning Then
+            Return
+        End If
+        _renderThread = New Thread(AddressOf RenderWorker)
+        _isRunning = True
+        _renderThread.Start()
+    End Sub
+
+    Public Sub StopRendering()
+        If Not _isRunning Then
+            Return
+        End If
+        _isRunning = False
+        _renderThread = Nothing
+        labFPS.Text = "-"
+    End Sub
+
+    Public Sub RenderWorker()
+        Utilities.Info("RenderWorker started")
+        Do While _isRunning
+            picMain.Invoke(New Action(AddressOf _panel.Render))
+
+            _lastFPS += 1
+
+            If (DateTime.Now - _lastFPSTime).TotalMilliseconds >= 1000 Then
+                labFPS.Text = _lastFPS.ToString()
+                _lastFPS = 0
+                _lastFPSTime = DateTime.Now
+            End If
+
+            Thread.Sleep(0)
+        Loop
+        Utilities.Info("RenderWorker stopped")
+    End Sub
+
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         _panel = New ElementsPanel(Me)
         _panel.Render()
     End Sub
 
-
     Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click
-        _panel.Elements.Add(New Ammeter("A1", New Point(50, 50) - _panel.Origin))
+        _panel.AddElement(New Ammeter("A1", New Point(50, 50) - _panel.Origin))
         _panel.Render()
         PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
     End Sub
@@ -41,7 +81,7 @@ Public Class frmMain
     End Sub
 
     Private Sub btnWire_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnWire.Click
-        _panel.DrawWire()
+        _panel.StartDrawWire()
     End Sub
 
     Private Sub 新建ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 新建ToolStripMenuItem.Click
@@ -164,6 +204,7 @@ Public Class frmMain
         _engine = New DigitalEngine()
         _engine.Elements = _panel.Elements
         _engine.Start()
+        StartRendering()
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
@@ -172,6 +213,10 @@ Public Class frmMain
         End If
         _engine.Stop()
         _engine = Nothing
+        StopRendering()
     End Sub
 
+    Private Sub ToolStripStatusLabel3_Click(sender As Object, e As EventArgs) Handles ToolStripStatusLabel3.Click
+
+    End Sub
 End Class

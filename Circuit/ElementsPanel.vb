@@ -43,6 +43,12 @@
         Origin.Y = _image.Size.Height / 2
     End Sub
 
+    Public Sub AddElement(e As Element)
+        Elements.Add(e)
+        e.UpdateProperties()
+        UpdateConnections(e)
+    End Sub
+
     Private Sub InternalRender()
         'Utilities.Info("Origin: " + Origin.ToString())
 
@@ -55,14 +61,19 @@
         _g.DrawLine(Pens.Gray, -10, 0, 10, 0)
         _g.DrawLine(Pens.Gray, 0, -10, 0, 10)
 
+        '元件
         For i = 0 To Elements.Count - 1
             Dim element = Elements(i)
             element.Draw(_g)
+            For Each c In element.Connectors
+                RenderConnection(c)
+            Next
             If i = _selectedId Then
                 element.DrawBoundary(_g)
             End If
         Next
 
+        '正在绘制的导线
         If _path.Count >= 2 Then
             _g.DrawLines(Pens.Black, _path.ToArray())
         End If
@@ -70,18 +81,28 @@
         _g.Restore(state)
     End Sub
 
+    Private Sub RenderConnection(a As Connector)
+        If a.To Is Nothing Then
+            Return
+        End If
+        Dim locationA = a.Location + a.Owner.Location
+        Dim locationTo = a.To.Location + a.To.Owner.Location
+
+        _g.DrawLine(Pens.Yellow, locationA, locationTo)
+    End Sub
+
     Public Sub Render()
         InternalRender()
         picMain.Refresh()
     End Sub
 
-    Public Sub DrawWire()
+    Public Sub StartDrawWire()
         _state = PanelState.PendingDrawWire
     End Sub
 
 #Region "UI"
     Private Sub onDoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles picMain.DoubleClick
-        Debug.Print("dc")
+        Debug.Print("Double Click")
         If _selectedId >= 0 Then
             Try
                 If Elements(_selectedId).Rotation = Element.RotationAngle.D270 Then
@@ -89,16 +110,30 @@
                 Else
                     Elements(_selectedId).Rotation += 1
                 End If
+                UpdateConnections(Elements(_selectedId))
             Catch ex As NotImplementedException
 
             End Try
         End If
     End Sub
 
+    ''' <summary>
+    ''' 旧的坐标, 原点则相对与picMain, 元件则相对于原点
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _oldObjectLocation As Point
 
-    Private _oldObjectLocation As Point '旧的坐标, 原点则相对与picMain, 元件则相对于原点
-    Private _downMouseLocation As Point '按下鼠标时的坐标, 相对于picMain
-    Private _path As New List(Of Point) '画导线的路径, 坐标相对于原点
+    ''' <summary>
+    ''' 按下鼠标时的坐标, 相对于picMain
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _downMouseLocation As Point
+
+    ''' <summary>
+    ''' 画导线的路径, 坐标相对于原点
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _path As New List(Of Point)
 
     Private Sub [Select](id As Integer)
         If id < 0 Then
@@ -145,11 +180,7 @@
                     menuPendingSelect.Hide()
                     menuPendingSelect.Items.Clear()
                     For i = 0 To ids.Count - 1
-                        Dim text = Elements(ids(i)).Title
-                        If text = "" Then
-                            text = Elements(ids(i)).Type()
-                        End If
-                        Dim item As New ToolStripMenuItem(String.Format("{0} (ID={1})", text, ids(i)))
+                        Dim item As New ToolStripMenuItem(String.Format("{0} (ID={1})", Elements(ids(i)).GetDescription(), ids(i)))
                         item.Tag = ids(i)
                         AddHandler item.Click, AddressOf onMenuItemClicked
                         menuPendingSelect.Items.Add(item)
@@ -205,6 +236,7 @@
             Case PanelState.MovingElement
                 Debug.Assert(_selectedId >= 0)
                 Elements(_selectedId).Location = _oldObjectLocation + mouseDelta
+                UpdateConnections(Elements(_selectedId))
             Case PanelState.DrawingWire
                 _path.Add(p)
         End Select
@@ -229,7 +261,7 @@
                     _path(i) -= wlocation
                 Next
                 Dim w As New Wire(_path, wlocation)
-                Elements.Add(w)
+                AddElement(w)
             End If
             _path.Clear()
         End If
@@ -263,6 +295,62 @@
     Public Function ViewableBoundary() As Rectangle
         Return New Rectangle(Point.Empty - Origin, picMain.Size)
     End Function
+
 #End Region
+
+    Public Sub ForeachConnector(callback As Action(Of Connector))
+        For Each e In Elements
+            For Each c In e.Connectors
+                callback(c)
+            Next
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' 更新所有的连接
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub UpdateConnections()
+        ForeachConnector(AddressOf UpdateConnections)
+    End Sub
+
+    ''' <summary>
+    ''' 更新一个连接器的连接
+    ''' </summary>
+    ''' <param name="a">连接器</param>
+    ''' <remarks></remarks>
+    Public Sub UpdateConnections(a As Connector)
+        Dim locationA = a.Location + a.Owner.Location
+
+        '判断当前的连接是否还有效
+        If a.To IsNot Nothing Then
+            Dim locationTo = a.To.Location + a.To.Owner.Location
+            If MyMath.Distance2(locationA, locationTo) <= 25 Then
+                Return
+            End If
+        End If
+
+        a.RemoveConnection()
+        ForeachConnector(Sub(b)
+                             If a.Owner.Equals(b.Owner) Then
+                                 Return
+                             End If
+                             Dim locationB = b.Location + b.Owner.Location
+                             If MyMath.Distance2(locationA, locationB) <= 25 Then
+                                 a.MakeConnection(b)
+                             End If
+                         End Sub)
+    End Sub
+
+    ''' <summary>
+    ''' 更新一个元件的连接
+    ''' </summary>
+    ''' <param name="a">元件</param>
+    ''' <remarks></remarks>
+    Public Sub UpdateConnections(a As Element)
+        For Each c In a.Connectors
+            UpdateConnections(c)
+        Next
+    End Sub
 
 End Class

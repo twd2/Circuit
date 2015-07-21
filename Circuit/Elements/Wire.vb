@@ -8,15 +8,15 @@
         MyBase.New("", location)
         Points.AddRange(path)
 
-        _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(0)})
-        _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(Points.Count - 1)})
+        _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(0), .Location = .OriginalLocation})
+        _connectors.Add(New Connector() With {.Owner = Me, .OriginalLocation = Points(Points.Count - 1), .Location = .OriginalLocation})
 
         CalcOriginalBoundary()
 
         UpdateProperties()
     End Sub
 
-    Protected Overrides Sub UpdateProperties()
+    Public Overrides Sub UpdateProperties()
         _boundary = _originalBoundary
         _boundary.Location += _location
     End Sub

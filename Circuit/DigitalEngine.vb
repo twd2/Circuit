@@ -97,7 +97,7 @@ Public Class DigitalEngine
     Private Sub Worker()
         Do While IsRunning
             [Next]()
-            Thread.Sleep(0)
+            Thread.Sleep(1000)
         Loop
     End Sub
 

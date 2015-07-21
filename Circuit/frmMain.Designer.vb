@@ -53,6 +53,8 @@ Partial Class frmMain
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.labFPS = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -157,7 +159,7 @@ Partial Class frmMain
         'StatusStrip1
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.MainBoxPoint, Me.ToolStripStatusLabel2, Me.OriPoint})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.MainBoxPoint, Me.ToolStripStatusLabel2, Me.OriPoint, Me.ToolStripStatusLabel3, Me.labFPS})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 687)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
@@ -338,6 +340,18 @@ Partial Class frmMain
         Me.Button2.Text = "停止"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'ToolStripStatusLabel3
+        '
+        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(35, 20)
+        Me.ToolStripStatusLabel3.Text = "FPS"
+        '
+        'labFPS
+        '
+        Me.labFPS.Name = "labFPS"
+        Me.labFPS.Size = New System.Drawing.Size(15, 20)
+        Me.labFPS.Text = "-"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
@@ -413,5 +427,7 @@ Partial Class frmMain
     Friend WithEvents PrintToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents labFPS As System.Windows.Forms.ToolStripStatusLabel
 
 End Class

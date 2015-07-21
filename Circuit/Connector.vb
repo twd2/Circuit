@@ -6,7 +6,7 @@
     Public CanIn = True, CanOut = True
     Private _value As Boolean
     Public [To] As Connector
-    Public Event ValueChanged(sender As Connector, args As ValueChangedEventArgs)
+    Public Event ValueChanged(sender As Connector, e As ValueChangedEventArgs)
 
     Public Sub Update()
         Owner.UpdateValue(Me)
@@ -25,5 +25,19 @@
             RaiseEvent ValueChanged(Me, args)
         End Set
     End Property
+
+    Public Sub MakeConnection(target As Connector)
+        RemoveConnection()
+        target.To = Me
+        Me.To = target
+    End Sub
+
+    Public Sub RemoveConnection()
+        If [To] Is Nothing Then
+            Return
+        End If
+        [To].To = Nothing
+        [To] = Nothing
+    End Sub
 
 End Class
