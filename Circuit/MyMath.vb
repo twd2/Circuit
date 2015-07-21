@@ -134,34 +134,4 @@
         Return 2 * s / z
     End Function
 
-    Public Shared Sub test()
-        Dim a As New Point(4, 2)
-        Dim b As New Point(2, 4)
-        Dim c As New Point(3, 4)
-
-        Dim ans As Double
-
-        Dim sw As New Stopwatch()
-
-        Dim count = 100000000
-
-        sw.Reset()
-        sw.Start()
-        For i = 1 To count
-            ans = PointToLine(a, b, c)
-        Next
-        sw.Stop()
-        Console.WriteLine(ans)
-        Console.WriteLine(sw.ElapsedMilliseconds.ToString() + "ms")
-
-        sw.Reset()
-        sw.Start()
-        For i = 1 To count
-            ans = PointToLine_way2(a, b, c)
-        Next
-        sw.Stop()
-        Console.WriteLine(ans)
-        Console.WriteLine(sw.ElapsedMilliseconds.ToString() + "ms")
-    End Sub
-
 End Class
