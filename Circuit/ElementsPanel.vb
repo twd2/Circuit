@@ -1,4 +1,6 @@
-﻿Public Class ElementsPanel
+﻿Imports WDMath
+
+Public Class ElementsPanel
 
     Private Enum PanelState
         None

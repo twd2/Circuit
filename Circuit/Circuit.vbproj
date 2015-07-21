@@ -122,7 +122,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="MyMath.vb" />
     <Compile Include="Utilities.vb" />
     <Compile Include="ValueChangedEventArgs.vb" />
     <Compile Include="Elements\Wire.vb" />
@@ -179,7 +178,12 @@
   <ItemGroup>
     <None Include="ArtWork\Ps.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MyMath\WDMath.vbproj">
+      <Project>{6a5235c2-8fd9-4216-8700-6f924d5bf8b8}</Project>
+      <Name>WDMath</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

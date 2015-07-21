@@ -1,4 +1,6 @@
-﻿Public Class MyMath
+﻿Imports System.Drawing
+
+Public Class MyMath
 
     ''' <summary>
     ''' 向量的模

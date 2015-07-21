@@ -1,4 +1,6 @@
-﻿Public Class Wire
+﻿Imports WDMath
+
+Public Class Wire
     Inherits Element
 
     '相对于location的位置, 应当有[0]=(0, 0)
