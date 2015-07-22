@@ -55,6 +55,7 @@ Partial Class frmMain
         Me.Button2 = New System.Windows.Forms.Button()
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.labFPS = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.PictureBox10 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -68,6 +69,7 @@ Partial Class frmMain
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -352,11 +354,23 @@ Partial Class frmMain
         Me.labFPS.Size = New System.Drawing.Size(15, 20)
         Me.labFPS.Text = "-"
         '
+        'PictureBox10
+        '
+        Me.PictureBox10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox10.Location = New System.Drawing.Point(456, 620)
+        Me.PictureBox10.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox10.Name = "PictureBox10"
+        Me.PictureBox10.Size = New System.Drawing.Size(49, 49)
+        Me.PictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.PictureBox10.TabIndex = 21
+        Me.PictureBox10.TabStop = False
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(844, 712)
+        Me.Controls.Add(Me.PictureBox10)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox9)
@@ -394,6 +408,7 @@ Partial Class frmMain
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -429,5 +444,6 @@ Partial Class frmMain
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents labFPS As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents PictureBox10 As System.Windows.Forms.PictureBox
 
 End Class

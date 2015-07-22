@@ -1,4 +1,6 @@
 ﻿Imports WDMath
+Imports System.ComponentModel
+Imports WDList
 
 Public Class ElementsPanel
 
@@ -15,14 +17,15 @@ Public Class ElementsPanel
 
     Public WithEvents picMain As PictureBox
     Public Parent As frmMain
-    Public Elements As New List(Of Element)
+    Public WithEvents Elements As MyList(Of Element)
     Public Origin As New Point(0, 0)
 
     Private _selectedId As Integer = -1
     Private _image As Bitmap, _g As Graphics
     Private _state As PanelState
 
-    Public Sub New(frm As frmMain)
+    Public Sub New(frm As frmMain, elements As MyList(Of Element))
+        Me.Elements = elements
         Parent = frm
         picMain = frm.picMain
 
@@ -45,10 +48,24 @@ Public Class ElementsPanel
         Origin.Y = _image.Size.Height / 2
     End Sub
 
-    Public Sub AddElement(e As Element)
-        Elements.Add(e)
+    Private Sub OnListChanged(sender As Object, e As ChangedEventArgs(Of Element)) Handles Elements.Changed
+        Select Case e.Type
+            Case ChangedType.AddOrInsert
+                Utilities.Info("ElementsPanel: On add element, updating")
+                OnAddElement(e.Item)
+            Case ChangedType.Remove
+                Utilities.Info("ElementsPanel: On remove element, updating")
+                OnRemoveElement(e.Item)
+        End Select
+    End Sub
+
+    Private Sub OnAddElement(e As Element)
         e.UpdateProperties()
         UpdateConnections(e)
+    End Sub
+
+    Private Sub OnRemoveElement(e As Element)
+        e.RemoveConnections()
     End Sub
 
     Private Sub InternalRender()
@@ -263,7 +280,7 @@ Public Class ElementsPanel
                     _path(i) -= wlocation
                 Next
                 Dim w As New Wire(_path, wlocation)
-                AddElement(w)
+                _Elements.Add(w)
             End If
             _path.Clear()
         End If

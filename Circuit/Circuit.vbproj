@@ -95,6 +95,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\NotGate.vb" />
     <Compile Include="Elements\Ammeter.vb" />
     <Compile Include="DigitalEngine.vb" />
     <Compile Include="ElementsPanel.vb" />
@@ -179,9 +180,13 @@
     <None Include="ArtWork\Ps.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyMath\WDMath.vbproj">
+    <ProjectReference Include="..\WDMath\WDMath.vbproj">
       <Project>{6a5235c2-8fd9-4216-8700-6f924d5bf8b8}</Project>
       <Name>WDMath</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WDList\WDList.csproj">
+      <Project>{6a546dd6-89cc-4c89-a4a4-8997ac1936c3}</Project>
+      <Name>WDList</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

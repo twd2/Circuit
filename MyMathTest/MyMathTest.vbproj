@@ -103,7 +103,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyMath\WDMath.vbproj">
+    <ProjectReference Include="..\WDMath\WDMath.vbproj">
       <Project>{6a5235c2-8fd9-4216-8700-6f924d5bf8b8}</Project>
       <Name>WDMath</Name>
     </ProjectReference>

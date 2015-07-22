@@ -215,5 +215,10 @@ Public MustInherit Class Element
         _boundary = New Rectangle(New Point(_location.X - _size.Width / 2, _location.Y - _size.Height / 2), _size)
     End Sub
 
+    Public Sub RemoveConnections()
+        For Each c In _connectors
+            c.RemoveConnection()
+        Next
+    End Sub
 
 End Class

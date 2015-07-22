@@ -1,9 +1,11 @@
 ﻿Imports System.Threading
+Imports System.ComponentModel
+Imports WDList
 
 Public Class DigitalEngine
 
     Public IsRunning As Boolean = False
-    Public Elements As New List(Of Element)
+    Public WithEvents Elements As MyList(Of Element)
 
     '待更新连接器的队列
     Private Q As New Queue(Of Connector)
@@ -12,28 +14,40 @@ Public Class DigitalEngine
 
     Private threadWorker As Thread
 
-    Public Sub AddElement(ic As Element)
+    Public Sub New(elements As MyList(Of Element))
+        Me.Elements = elements
+    End Sub
+
+    Private Sub OnListChanged(sender As Object, e As ChangedEventArgs(Of Element)) Handles Elements.Changed
+        Select Case e.Type
+            Case ChangedType.AddOrInsert
+                Utilities.Info("DigitalEngine: On add element, adding handler")
+                OnAddElement(e.Item)
+            Case ChangedType.Remove
+                Utilities.Info("DigitalEngine: On remove element, removing handler")
+                OnRemoveElement(e.Item)
+        End Select
+    End Sub
+
+    Private Sub OnAddElement(e As Element)
         SyncLock Elements
             If IsRunning Then
                 '如果正在运行则添加Handler
-                For Each c In ic.Connectors
+                For Each c In e.Connectors
                     AddHandler c.ValueChanged, AddressOf ValueChangedHandler
                 Next
             End If
-            Elements.Add(ic)
         End SyncLock
     End Sub
 
-    Public Sub RemoveElement(index As Integer)
+    Private Sub OnRemoveElement(e As Element)
         SyncLock Elements
             If IsRunning Then
                 '如果正在运行则添加Handler
-                Dim ic = Elements(index)
-                For Each c In ic.Connectors
+                For Each c In e.Connectors
                     RemoveHandler c.ValueChanged, AddressOf ValueChangedHandler
                 Next
             End If
-            Elements.RemoveAt(index)
         End SyncLock
     End Sub
 
@@ -84,6 +98,7 @@ Public Class DigitalEngine
         SyncLock Q
             If Q.Count > 0 Then
                 conn = Q.Dequeue()
+                'Utilities.Info("Dequeue")
             End If
             If Q.Count <= 0 Then
                 eventEnqueue.Reset()
@@ -97,13 +112,14 @@ Public Class DigitalEngine
     Private Sub Worker()
         Do While IsRunning
             [Next]()
-            Thread.Sleep(1000)
+            'Thread.Sleep(100)
         Loop
     End Sub
 
     Private Sub ValueChangedHandler(sender As Connector, args As ValueChangedEventArgs)
         SyncLock Q
             Q.Enqueue(sender)
+            'Utilities.Info("Enqueue")
             eventEnqueue.Set()
         End SyncLock
     End Sub

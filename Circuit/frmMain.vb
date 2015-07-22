@@ -3,9 +3,12 @@ Imports System.Text
 Imports System.Xml
 Imports System.Drawing.Printing
 Imports System.Threading
+Imports System.ComponentModel
+Imports WDList
 
 Public Class frmMain
 
+    Private WithEvents _elements As New MyList(Of Element)
     Private _panel As ElementsPanel
     Private _engine As DigitalEngine
 
@@ -15,6 +18,21 @@ Public Class frmMain
     Private _isRunning As Boolean = False
     Private _lastFPS As Integer = 0
     Private _lastFPSTime As DateTime = DateTime.Now
+
+    Private Sub OnListChanged(sender As Object, e As ChangedEventArgs(Of Element)) Handles _elements.Changed
+
+        Dim messageBoxVB As New System.Text.StringBuilder()
+        messageBoxVB.AppendFormat("{0} = {1}", "ListChangedType", e.Type)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "NewIndex", e.NewIndex)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "OldIndex", e.OldIndex)
+        messageBoxVB.AppendLine()
+        messageBoxVB.AppendFormat("{0} = {1}", "Item", e.Item)
+        messageBoxVB.AppendLine()
+        Utilities.Info(messageBoxVB.ToString())
+
+    End Sub
 
     Public Sub StartRendering()
         If _isRunning Then
@@ -53,12 +71,12 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        _panel = New ElementsPanel(Me)
+        _panel = New ElementsPanel(Me, _elements)
         _panel.Render()
     End Sub
 
     Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click
-        _panel.AddElement(New Ammeter("A1", New Point(50, 50) - _panel.Origin))
+        _elements.Add(New Ammeter("A1", New Point(50, 50) - _panel.Origin))
         _panel.Render()
         PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
     End Sub
@@ -201,7 +219,7 @@ Public Class frmMain
         If _engine IsNot Nothing Then
             Return
         End If
-        _engine = New DigitalEngine()
+        _engine = New DigitalEngine(_elements)
         _engine.Elements = _panel.Elements
         _engine.Start()
         StartRendering()
@@ -217,6 +235,13 @@ Public Class frmMain
     End Sub
 
     Private Sub ToolStripStatusLabel3_Click(sender As Object, e As EventArgs) Handles ToolStripStatusLabel3.Click
+
+    End Sub
+
+    Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
+        _elements.Add(New NotGate("N1", New Point(50, 50) - _panel.Origin))
+        _panel.Render()
+        PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
 
     End Sub
 End Class
