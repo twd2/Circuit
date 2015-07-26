@@ -83,6 +83,9 @@ Public Class ElementsPanel
         '元件
         For i = 0 To Elements.Count - 1
             Dim element = Elements(i)
+            If Not MyMath.IsCoincide(ViewableBoundary, element.Boundary) Then
+                Continue For
+            End If
             element.Draw(_g)
             For Each c In element.Connectors
                 RenderConnection(c)
@@ -121,7 +124,7 @@ Public Class ElementsPanel
 
 #Region "UI"
     Private Sub onDoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles picMain.DoubleClick
-        Debug.Print("Double Click")
+        Utilities.Info("Double Click")
         If _selectedId >= 0 Then
             Try
                 If Elements(_selectedId).Rotation = Element.RotationAngle.D270 Then

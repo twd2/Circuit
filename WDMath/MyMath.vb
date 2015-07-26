@@ -136,4 +136,16 @@ Public Class MyMath
         Return 2 * s / z
     End Function
 
+    ''' <summary>
+    ''' 判断矩形是否相交
+    ''' </summary>
+    ''' <param name="R1">矩形一</param>
+    ''' <param name="R2">矩形二</param>
+    ''' <returns>是否相交</returns>
+    ''' <remarks></remarks>
+    Public Shared Function IsCoincide(ByVal R1 As Rectangle, ByVal R2 As Rectangle) As Boolean
+        Return R1.Left < R2.Right AndAlso R1.Right > R2.Left AndAlso
+     R1.Top < R2.Bottom AndAlso R1.Bottom > R2.Top
+    End Function
+
 End Class

@@ -369,10 +369,10 @@ Partial Class frmMain
         'picHub3p
         '
         Me.picHub3p.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.picHub3p.Location = New System.Drawing.Point(406, 538)
+        Me.picHub3p.Location = New System.Drawing.Point(406, 553)
         Me.picHub3p.Margin = New System.Windows.Forms.Padding(4)
         Me.picHub3p.Name = "picHub3p"
-        Me.picHub3p.Size = New System.Drawing.Size(70, 50)
+        Me.picHub3p.Size = New System.Drawing.Size(30, 35)
         Me.picHub3p.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.picHub3p.TabIndex = 22
         Me.picHub3p.TabStop = False
