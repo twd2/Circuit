@@ -95,6 +95,10 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\Hub3p.vb" />
+    <Compile Include="Elements\Motor.vb" />
+    <Compile Include="Elements\Light.vb" />
+    <Compile Include="Elements\Voltmeter.vb" />
     <Compile Include="Elements\NotGate.vb" />
     <Compile Include="Elements\Ammeter.vb" />
     <Compile Include="DigitalEngine.vb" />

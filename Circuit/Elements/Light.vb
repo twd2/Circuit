@@ -1,4 +1,4 @@
-﻿Public Class NotGate
+﻿Public Class Light
     Inherits Element
 
     Public Sub New(title As String, location As Point)
@@ -13,16 +13,27 @@
         UpdateProperties()
     End Sub
 
+    Public ReadOnly Property Value As String
+        Get
+            Return _connectors(0).Value <> _connectors(1).Value
+        End Get
+    End Property
+
+
     Protected Overrides Sub InternalDraw(g As Graphics)
-        g.FillEllipse(Brushes.White, New Rectangle(-25, -25, 50, 50))
+
+        Dim myBrush = Brushes.White
+
+        If Value Then
+            myBrush = Brushes.Yellow
+        End If
+        g.FillEllipse(myBrush, New Rectangle(-25, -25, 50, 50))
         g.DrawEllipse(Pens.Black, New Rectangle(-25, -25, 50, 50))
 
-        Dim str = "N"
-        Dim font = New Font("Consolas", 20)
+        Dim sqrt2_25 = 17.67767F
+        g.DrawLine(Pens.Black, -sqrt2_25, -sqrt2_25, sqrt2_25, sqrt2_25)
+        g.DrawLine(Pens.Black, -sqrt2_25, sqrt2_25, sqrt2_25, -sqrt2_25)
 
-        Dim strSize = g.MeasureString(str, font)
-
-        g.DrawString(str, font, Brushes.Black, -strSize.Width / 2, -strSize.Height / 2)
 
         Dim myPen As Pen
 
@@ -43,7 +54,7 @@
     End Sub
 
     Public Overloads Shared Function GetImage() As Image
-        Dim e As New NotGate("", Point.Empty)
+        Dim e As New Light("", Point.Empty)
         Dim img As New Bitmap(e.Size.Width, e.Size.Height)
         Using g = Graphics.FromImage(img)
             g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
@@ -60,11 +71,7 @@
             valueChangedConnector.Value = False
         End If
 
-        If valueChangedConnector.Equals(_connectors(0)) Then
-            _connectors(1).Value = Not valueChangedConnector.Value
-        Else
-            _connectors(0).Value = Not valueChangedConnector.Value
-        End If
+        'Do nothing
     End Sub
 
 End Class

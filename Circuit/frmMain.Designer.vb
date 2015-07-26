@@ -51,11 +51,12 @@ Partial Class frmMain
         Me.PictureBox6 = New System.Windows.Forms.PictureBox()
         Me.picVoltmeter = New System.Windows.Forms.PictureBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.picMotor = New System.Windows.Forms.PictureBox()
         Me.picAmmeter = New System.Windows.Forms.PictureBox()
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnStop = New System.Windows.Forms.Button()
-        Me.PictureBox10 = New System.Windows.Forms.PictureBox()
+        Me.picNotGate = New System.Windows.Forms.PictureBox()
+        Me.picHub3p = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -67,9 +68,10 @@ Partial Class frmMain
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picVoltmeter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picMotor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picAmmeter, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picNotGate, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picHub3p, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -311,16 +313,16 @@ Partial Class frmMain
         Me.PictureBox4.TabIndex = 6
         Me.PictureBox4.TabStop = False
         '
-        'PictureBox1
+        'picMotor
         '
-        Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.Location = New System.Drawing.Point(250, 538)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(70, 50)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.PictureBox1.TabIndex = 4
-        Me.PictureBox1.TabStop = False
+        Me.picMotor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.picMotor.Location = New System.Drawing.Point(250, 538)
+        Me.picMotor.Margin = New System.Windows.Forms.Padding(4)
+        Me.picMotor.Name = "picMotor"
+        Me.picMotor.Size = New System.Drawing.Size(70, 50)
+        Me.picMotor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.picMotor.TabIndex = 4
+        Me.picMotor.TabStop = False
         '
         'picAmmeter
         '
@@ -353,23 +355,35 @@ Partial Class frmMain
         Me.btnStop.Text = "停止"
         Me.btnStop.UseVisualStyleBackColor = True
         '
-        'PictureBox10
+        'picNotGate
         '
-        Me.PictureBox10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox10.Location = New System.Drawing.Point(328, 538)
-        Me.PictureBox10.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox10.Name = "PictureBox10"
-        Me.PictureBox10.Size = New System.Drawing.Size(70, 50)
-        Me.PictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.PictureBox10.TabIndex = 21
-        Me.PictureBox10.TabStop = False
+        Me.picNotGate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.picNotGate.Location = New System.Drawing.Point(328, 538)
+        Me.picNotGate.Margin = New System.Windows.Forms.Padding(4)
+        Me.picNotGate.Name = "picNotGate"
+        Me.picNotGate.Size = New System.Drawing.Size(70, 50)
+        Me.picNotGate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.picNotGate.TabIndex = 21
+        Me.picNotGate.TabStop = False
+        '
+        'picHub3p
+        '
+        Me.picHub3p.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.picHub3p.Location = New System.Drawing.Point(406, 538)
+        Me.picHub3p.Margin = New System.Windows.Forms.Padding(4)
+        Me.picHub3p.Name = "picHub3p"
+        Me.picHub3p.Size = New System.Drawing.Size(70, 50)
+        Me.picHub3p.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.picHub3p.TabIndex = 22
+        Me.picHub3p.TabStop = False
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(844, 712)
-        Me.Controls.Add(Me.PictureBox10)
+        Me.Controls.Add(Me.picHub3p)
+        Me.Controls.Add(Me.picNotGate)
         Me.Controls.Add(Me.btnStop)
         Me.Controls.Add(Me.btnStart)
         Me.Controls.Add(Me.PictureBox9)
@@ -386,7 +400,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.picVoltmeter)
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.picMotor)
         Me.Controls.Add(Me.picAmmeter)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -405,9 +419,10 @@ Partial Class frmMain
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picVoltmeter, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picMotor, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picAmmeter, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picNotGate, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picHub3p, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -420,7 +435,7 @@ Partial Class frmMain
     Friend WithEvents picAmmeter As System.Windows.Forms.PictureBox
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents 删除ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents picMotor As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
     Friend WithEvents picVoltmeter As System.Windows.Forms.PictureBox
@@ -443,6 +458,7 @@ Partial Class frmMain
     Friend WithEvents btnStop As System.Windows.Forms.Button
     Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents labFPS As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents PictureBox10 As System.Windows.Forms.PictureBox
+    Friend WithEvents picNotGate As System.Windows.Forms.PictureBox
+    Friend WithEvents picHub3p As System.Windows.Forms.PictureBox
 
 End Class

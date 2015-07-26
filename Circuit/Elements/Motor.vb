@@ -1,4 +1,4 @@
-﻿Public Class NotGate
+﻿Public Class Motor
     Inherits Element
 
     Public Sub New(title As String, location As Point)
@@ -17,7 +17,7 @@
         g.FillEllipse(Brushes.White, New Rectangle(-25, -25, 50, 50))
         g.DrawEllipse(Pens.Black, New Rectangle(-25, -25, 50, 50))
 
-        Dim str = "N"
+        Dim str = "M"
         Dim font = New Font("Consolas", 20)
 
         Dim strSize = g.MeasureString(str, font)
@@ -43,7 +43,7 @@
     End Sub
 
     Public Overloads Shared Function GetImage() As Image
-        Dim e As New NotGate("", Point.Empty)
+        Dim e As New Motor("", Point.Empty)
         Dim img As New Bitmap(e.Size.Width, e.Size.Height)
         Using g = Graphics.FromImage(img)
             g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
@@ -61,9 +61,9 @@
         End If
 
         If valueChangedConnector.Equals(_connectors(0)) Then
-            _connectors(1).Value = Not valueChangedConnector.Value
+            _connectors(1).Value = valueChangedConnector.Value
         Else
-            _connectors(0).Value = Not valueChangedConnector.Value
+            _connectors(0).Value = valueChangedConnector.Value
         End If
     End Sub
 

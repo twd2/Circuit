@@ -71,6 +71,16 @@ Public Class frmMain
     Private Sub LoadImages()
         picAmmeter.Image = Ammeter.GetImage()
         picAmmeter.Refresh()
+        picVoltmeter.Image = Voltmeter.GetImage()
+        picVoltmeter.Refresh()
+        picLight.Image = Light.GetImage()
+        picLight.Refresh()
+        picMotor.Image = Motor.GetImage()
+        picMotor.Refresh()
+        picNotGate.Image = NotGate.GetImage()
+        picNotGate.Refresh()
+        picHub3p.Image = Hub3p.GetImage()
+        picHub3p.Refresh()
     End Sub
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -188,11 +198,33 @@ Public Class frmMain
         StopRendering()
     End Sub
 
-    Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
+    Private Sub picNot_Click(sender As Object, e As EventArgs) Handles picNotGate.Click
         _elements.Add(New NotGate("N1", New Point(50, 50) - _panel.Origin))
         _panel.Render()
         PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
-
     End Sub
 
+    Private Sub picVoltmeter_Click(sender As Object, e As EventArgs) Handles picVoltmeter.Click
+        _elements.Add(New Voltmeter("V1", New Point(50, 50) - _panel.Origin))
+        _panel.Render()
+        PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
+    End Sub
+
+    Private Sub picMotor_Click(sender As Object, e As EventArgs) Handles picMotor.Click
+        _elements.Add(New Motor("M1", New Point(50, 50) - _panel.Origin))
+        _panel.Render()
+        PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
+    End Sub
+
+    Private Sub picLight_Click(sender As Object, e As EventArgs) Handles picLight.Click
+        _elements.Add(New Light("L1", New Point(50, 50) - _panel.Origin))
+        _panel.Render()
+        PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
+    End Sub
+
+    Private Sub picHub3p_Click(sender As Object, e As EventArgs) Handles picHub3p.Click
+        _elements.Add(New Hub3p("", New Point(50, 50) - _panel.Origin))
+        _panel.Render()
+        PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
+    End Sub
 End Class

@@ -1,4 +1,4 @@
-﻿Public Class NotGate
+﻿Public Class Voltmeter
     Inherits Element
 
     Public Sub New(title As String, location As Point)
@@ -17,7 +17,7 @@
         g.FillEllipse(Brushes.White, New Rectangle(-25, -25, 50, 50))
         g.DrawEllipse(Pens.Black, New Rectangle(-25, -25, 50, 50))
 
-        Dim str = "N"
+        Dim str = "V"
         Dim font = New Font("Consolas", 20)
 
         Dim strSize = g.MeasureString(str, font)
@@ -43,7 +43,7 @@
     End Sub
 
     Public Overloads Shared Function GetImage() As Image
-        Dim e As New NotGate("", Point.Empty)
+        Dim e As New Voltmeter("", Point.Empty)
         Dim img As New Bitmap(e.Size.Width, e.Size.Height)
         Using g = Graphics.FromImage(img)
             g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
@@ -60,11 +60,7 @@
             valueChangedConnector.Value = False
         End If
 
-        If valueChangedConnector.Equals(_connectors(0)) Then
-            _connectors(1).Value = Not valueChangedConnector.Value
-        Else
-            _connectors(0).Value = Not valueChangedConnector.Value
-        End If
+        'Do nothing
     End Sub
 
 End Class
