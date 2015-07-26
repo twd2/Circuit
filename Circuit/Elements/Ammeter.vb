@@ -42,6 +42,17 @@
 
     End Sub
 
+    Public Overloads Shared Function GetImage() As Image
+        Dim e As New Ammeter("", Point.Empty)
+        Dim img As New Bitmap(e.Size.Width, e.Size.Height)
+        Using g = Graphics.FromImage(img)
+            g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
+            g.TranslateTransform(img.Size.Width / 2, img.Size.Height / 2)
+            e.Draw(g)
+        End Using
+        Return img
+    End Function
+
     Public Overrides Sub UpdateValue(valueChangedConnector As Connector)
         If valueChangedConnector.To IsNot Nothing Then
             valueChangedConnector.To.Value = valueChangedConnector.Value

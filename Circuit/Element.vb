@@ -163,6 +163,10 @@ Public MustInherit Class Element
 
     Protected MustOverride Sub InternalDraw(g As Graphics)
 
+    Public Shared Function GetImage() As Image
+        Return New Bitmap(1, 1)
+    End Function
+
     Public MustOverride Sub UpdateValue(valueChangedConnector As Connector)
 
     Public Overridable Sub DrawBoundary(g As Graphics)

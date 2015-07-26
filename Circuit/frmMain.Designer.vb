@@ -40,35 +40,35 @@ Partial Class frmMain
         Me.MainBoxPoint = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.OriPoint = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.labFPS = New System.Windows.Forms.ToolStripStatusLabel()
         Me.btnWire = New System.Windows.Forms.Button()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox8 = New System.Windows.Forms.PictureBox()
+        Me.picLight = New System.Windows.Forms.PictureBox()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.picMain = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox6 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
+        Me.picVoltmeter = New System.Windows.Forms.PictureBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.labFPS = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.picAmmeter = New System.Windows.Forms.PictureBox()
+        Me.btnStart = New System.Windows.Forms.Button()
+        Me.btnStop = New System.Windows.Forms.Button()
         Me.PictureBox10 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picLight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picVoltmeter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picAmmeter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -128,11 +128,11 @@ Partial Class frmMain
         '
         'btnAutoNo
         '
-        Me.btnAutoNo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAutoNo.Location = New System.Drawing.Point(344, 538)
+        Me.btnAutoNo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAutoNo.Location = New System.Drawing.Point(600, 538)
         Me.btnAutoNo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAutoNo.Name = "btnAutoNo"
-        Me.btnAutoNo.Size = New System.Drawing.Size(228, 40)
+        Me.btnAutoNo.Size = New System.Drawing.Size(228, 29)
         Me.btnAutoNo.TabIndex = 10
         Me.btnAutoNo.Text = "自动编号"
         Me.btnAutoNo.UseVisualStyleBackColor = True
@@ -149,11 +149,11 @@ Partial Class frmMain
         '
         'btnReset
         '
-        Me.btnReset.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnReset.Location = New System.Drawing.Point(236, 538)
+        Me.btnReset.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnReset.Location = New System.Drawing.Point(600, 575)
         Me.btnReset.Margin = New System.Windows.Forms.Padding(4)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(100, 29)
+        Me.btnReset.Size = New System.Drawing.Size(228, 29)
         Me.btnReset.TabIndex = 12
         Me.btnReset.Text = "复位原点"
         Me.btnReset.UseVisualStyleBackColor = True
@@ -193,12 +193,25 @@ Partial Class frmMain
         Me.OriPoint.Size = New System.Drawing.Size(45, 20)
         Me.OriPoint.Text = "(0, 0)"
         '
+        'ToolStripStatusLabel3
+        '
+        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(35, 20)
+        Me.ToolStripStatusLabel3.Text = "FPS"
+        '
+        'labFPS
+        '
+        Me.labFPS.Name = "labFPS"
+        Me.labFPS.Size = New System.Drawing.Size(15, 20)
+        Me.labFPS.Text = "-"
+        '
         'btnWire
         '
-        Me.btnWire.Location = New System.Drawing.Point(425, 586)
+        Me.btnWire.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnWire.Location = New System.Drawing.Point(600, 612)
         Me.btnWire.Margin = New System.Windows.Forms.Padding(4)
         Me.btnWire.Name = "btnWire"
-        Me.btnWire.Size = New System.Drawing.Size(100, 25)
+        Me.btnWire.Size = New System.Drawing.Size(228, 29)
         Me.btnWire.TabIndex = 14
         Me.btnWire.Text = "导线"
         Me.btnWire.UseVisualStyleBackColor = True
@@ -207,7 +220,7 @@ Partial Class frmMain
         '
         Me.PictureBox9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox9.Image = CType(resources.GetObject("PictureBox9.Image"), System.Drawing.Image)
-        Me.PictureBox9.Location = New System.Drawing.Point(399, 620)
+        Me.PictureBox9.Location = New System.Drawing.Point(256, 596)
         Me.PictureBox9.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox9.Name = "PictureBox9"
         Me.PictureBox9.Size = New System.Drawing.Size(49, 49)
@@ -215,23 +228,22 @@ Partial Class frmMain
         Me.PictureBox9.TabIndex = 17
         Me.PictureBox9.TabStop = False
         '
-        'PictureBox8
+        'picLight
         '
-        Me.PictureBox8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox8.Image = CType(resources.GetObject("PictureBox8.Image"), System.Drawing.Image)
-        Me.PictureBox8.Location = New System.Drawing.Point(325, 620)
-        Me.PictureBox8.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox8.Name = "PictureBox8"
-        Me.PictureBox8.Size = New System.Drawing.Size(49, 49)
-        Me.PictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.PictureBox8.TabIndex = 16
-        Me.PictureBox8.TabStop = False
+        Me.picLight.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.picLight.Location = New System.Drawing.Point(172, 538)
+        Me.picLight.Margin = New System.Windows.Forms.Padding(4)
+        Me.picLight.Name = "picLight"
+        Me.picLight.Size = New System.Drawing.Size(70, 50)
+        Me.picLight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.picLight.TabIndex = 16
+        Me.picLight.TabStop = False
         '
         'PictureBox7
         '
         Me.PictureBox7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox7.Image = CType(resources.GetObject("PictureBox7.Image"), System.Drawing.Image)
-        Me.PictureBox7.Location = New System.Drawing.Point(252, 620)
+        Me.PictureBox7.Location = New System.Drawing.Point(199, 596)
         Me.PictureBox7.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox7.Name = "PictureBox7"
         Me.PictureBox7.Size = New System.Drawing.Size(49, 49)
@@ -256,7 +268,7 @@ Partial Class frmMain
         '
         Me.PictureBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.Location = New System.Drawing.Point(16, 620)
+        Me.PictureBox3.Location = New System.Drawing.Point(16, 596)
         Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(49, 49)
@@ -268,7 +280,7 @@ Partial Class frmMain
         '
         Me.PictureBox6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
-        Me.PictureBox6.Location = New System.Drawing.Point(163, 620)
+        Me.PictureBox6.Location = New System.Drawing.Point(130, 596)
         Me.PictureBox6.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(61, 49)
@@ -276,23 +288,22 @@ Partial Class frmMain
         Me.PictureBox6.TabIndex = 8
         Me.PictureBox6.TabStop = False
         '
-        'PictureBox5
+        'picVoltmeter
         '
-        Me.PictureBox5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
-        Me.PictureBox5.Location = New System.Drawing.Point(89, 538)
-        Me.PictureBox5.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(49, 49)
-        Me.PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.PictureBox5.TabIndex = 7
-        Me.PictureBox5.TabStop = False
+        Me.picVoltmeter.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.picVoltmeter.Location = New System.Drawing.Point(94, 538)
+        Me.picVoltmeter.Margin = New System.Windows.Forms.Padding(4)
+        Me.picVoltmeter.Name = "picVoltmeter"
+        Me.picVoltmeter.Size = New System.Drawing.Size(70, 50)
+        Me.picVoltmeter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.picVoltmeter.TabIndex = 7
+        Me.picVoltmeter.TabStop = False
         '
         'PictureBox4
         '
         Me.PictureBox4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox4.Image = CType(resources.GetObject("PictureBox4.Image"), System.Drawing.Image)
-        Me.PictureBox4.Location = New System.Drawing.Point(89, 620)
+        Me.PictureBox4.Location = New System.Drawing.Point(73, 596)
         Me.PictureBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox4.Name = "PictureBox4"
         Me.PictureBox4.Size = New System.Drawing.Size(49, 49)
@@ -303,64 +314,52 @@ Partial Class frmMain
         'PictureBox1
         '
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(163, 538)
+        Me.PictureBox1.Location = New System.Drawing.Point(250, 538)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(49, 49)
+        Me.PictureBox1.Size = New System.Drawing.Size(70, 50)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
         '
-        'PictureBox2
+        'picAmmeter
         '
-        Me.PictureBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(16, 538)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(49, 49)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.PictureBox2.TabIndex = 2
-        Me.PictureBox2.TabStop = False
+        Me.picAmmeter.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.picAmmeter.Location = New System.Drawing.Point(16, 538)
+        Me.picAmmeter.Margin = New System.Windows.Forms.Padding(4)
+        Me.picAmmeter.Name = "picAmmeter"
+        Me.picAmmeter.Size = New System.Drawing.Size(70, 50)
+        Me.picAmmeter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.picAmmeter.TabIndex = 2
+        Me.picAmmeter.TabStop = False
         '
-        'Button1
+        'btnStart
         '
-        Me.Button1.Location = New System.Drawing.Point(600, 538)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 19
-        Me.Button1.Text = "开始"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnStart.Location = New System.Drawing.Point(600, 648)
+        Me.btnStart.Name = "btnStart"
+        Me.btnStart.Size = New System.Drawing.Size(108, 29)
+        Me.btnStart.TabIndex = 19
+        Me.btnStart.Text = "开始"
+        Me.btnStart.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnStop
         '
-        Me.Button2.Location = New System.Drawing.Point(693, 538)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "停止"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'ToolStripStatusLabel3
-        '
-        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(35, 20)
-        Me.ToolStripStatusLabel3.Text = "FPS"
-        '
-        'labFPS
-        '
-        Me.labFPS.Name = "labFPS"
-        Me.labFPS.Size = New System.Drawing.Size(15, 20)
-        Me.labFPS.Text = "-"
+        Me.btnStop.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnStop.Location = New System.Drawing.Point(720, 648)
+        Me.btnStop.Name = "btnStop"
+        Me.btnStop.Size = New System.Drawing.Size(108, 29)
+        Me.btnStop.TabIndex = 20
+        Me.btnStop.Text = "停止"
+        Me.btnStop.UseVisualStyleBackColor = True
         '
         'PictureBox10
         '
         Me.PictureBox10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox10.Location = New System.Drawing.Point(456, 620)
+        Me.PictureBox10.Location = New System.Drawing.Point(328, 538)
         Me.PictureBox10.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox10.Name = "PictureBox10"
-        Me.PictureBox10.Size = New System.Drawing.Size(49, 49)
+        Me.PictureBox10.Size = New System.Drawing.Size(70, 50)
         Me.PictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.PictureBox10.TabIndex = 21
         Me.PictureBox10.TabStop = False
@@ -371,10 +370,10 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(844, 712)
         Me.Controls.Add(Me.PictureBox10)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnStop)
+        Me.Controls.Add(Me.btnStart)
         Me.Controls.Add(Me.PictureBox9)
-        Me.Controls.Add(Me.PictureBox8)
+        Me.Controls.Add(Me.picLight)
         Me.Controls.Add(Me.PictureBox7)
         Me.Controls.Add(Me.btnWire)
         Me.Controls.Add(Me.StatusStrip1)
@@ -384,11 +383,11 @@ Partial Class frmMain
         Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.PictureBox6)
         Me.Controls.Add(Me.btnAutoNo)
-        Me.Controls.Add(Me.PictureBox5)
+        Me.Controls.Add(Me.picVoltmeter)
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.PictureBox2)
+        Me.Controls.Add(Me.picAmmeter)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmMain"
@@ -399,15 +398,15 @@ Partial Class frmMain
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picLight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picVoltmeter, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picAmmeter, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -418,13 +417,13 @@ Partial Class frmMain
     Friend WithEvents 新建ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 保存ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 生成图片ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
+    Friend WithEvents picAmmeter As System.Windows.Forms.PictureBox
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents 删除ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
-    Friend WithEvents PictureBox5 As System.Windows.Forms.PictureBox
+    Friend WithEvents picVoltmeter As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox6 As System.Windows.Forms.PictureBox
     Friend WithEvents btnAutoNo As System.Windows.Forms.Button
     Friend WithEvents PropertyGrid1 As System.Windows.Forms.PropertyGrid
@@ -436,12 +435,12 @@ Partial Class frmMain
     Friend WithEvents OriPoint As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents btnWire As System.Windows.Forms.Button
     Friend WithEvents PictureBox7 As System.Windows.Forms.PictureBox
-    Friend WithEvents PictureBox8 As System.Windows.Forms.PictureBox
+    Friend WithEvents picLight As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox9 As System.Windows.Forms.PictureBox
     Friend WithEvents 打开ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PrintToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents btnStart As System.Windows.Forms.Button
+    Friend WithEvents btnStop As System.Windows.Forms.Button
     Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents labFPS As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents PictureBox10 As System.Windows.Forms.PictureBox

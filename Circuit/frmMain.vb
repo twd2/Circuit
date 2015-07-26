@@ -20,18 +20,16 @@ Public Class frmMain
     Private _lastFPSTime As DateTime = DateTime.Now
 
     Private Sub OnListChanged(sender As Object, e As ChangedEventArgs(Of Element)) Handles _elements.Changed
-
-        Dim messageBoxVB As New System.Text.StringBuilder()
-        messageBoxVB.AppendFormat("{0} = {1}", "ListChangedType", e.Type)
-        messageBoxVB.AppendLine()
-        messageBoxVB.AppendFormat("{0} = {1}", "NewIndex", e.NewIndex)
-        messageBoxVB.AppendLine()
-        messageBoxVB.AppendFormat("{0} = {1}", "OldIndex", e.OldIndex)
-        messageBoxVB.AppendLine()
-        messageBoxVB.AppendFormat("{0} = {1}", "Item", e.Item)
-        messageBoxVB.AppendLine()
-        Utilities.Info(messageBoxVB.ToString())
-
+        Dim sb As New StringBuilder()
+        sb.AppendFormat("{0} = {1}", "ListChangedType", e.Type)
+        sb.AppendLine()
+        sb.AppendFormat("{0} = {1}", "NewIndex", e.NewIndex)
+        sb.AppendLine()
+        sb.AppendFormat("{0} = {1}", "OldIndex", e.OldIndex)
+        sb.AppendLine()
+        sb.AppendFormat("{0} = {1}", "Item", e.Item)
+        sb.AppendLine()
+        Utilities.Info(sb.ToString())
     End Sub
 
     Public Sub StartRendering()
@@ -70,12 +68,19 @@ Public Class frmMain
         Utilities.Info("RenderWorker stopped")
     End Sub
 
+    Private Sub LoadImages()
+        picAmmeter.Image = Ammeter.GetImage()
+        picAmmeter.Refresh()
+    End Sub
+
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        LoadImages()
+
         _panel = New ElementsPanel(Me, _elements)
         _panel.Render()
     End Sub
 
-    Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click
+    Private Sub picAmmeter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles picAmmeter.Click
         _elements.Add(New Ammeter("A1", New Point(50, 50) - _panel.Origin))
         _panel.Render()
         PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
@@ -112,27 +117,6 @@ Public Class frmMain
         _panel.Render()
     End Sub
 
-    Private Sub PictureBox7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox7.Click
-        'Elements.Add(New Element(Element.ElementType.Bell, "B1", New Point(10, 10) - Origin))
-        'ReDraw()
-    End Sub
-
-    Private Sub PictureBox8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox8.Click
-        'Elements.Add(New Element(Element.ElementType.Motor, "M1", New Point(10, 10) - Origin))
-        'ReDraw()
-    End Sub
-
-    Private Sub PictureBox9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox9.Click
-        'Elements.Add(New Element(Element.ElementType.PowerSupply, "", New Point(10, 10) - Origin))
-        'ReDraw()
-    End Sub
-
-    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'CanDrawLine = Not CanDrawLine
-        'DrawingLine = DrawingLine AndAlso CanDrawLine
-        'picMain.Cursor = Cursors.Default
-    End Sub
-
     Private Sub 保存ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 保存ToolStripMenuItem.Click
         Throw New NotImplementedException
         'Using SFD As New SaveFileDialog
@@ -143,31 +127,6 @@ Public Class frmMain
         '        WriteCirData(SFD.FileName)
         '    End If
         'End Using
-    End Sub
-
-    Sub WriteCirData(ByVal Filename As String)
-        Throw New NotImplementedException
-        'Dim XD As New XmlDocument()
-        'XD.AppendChild(XD.CreateXmlDeclaration("1.0", "UTF-8", String.Empty))
-        'Dim root = XD.CreateElement("Circuit")
-        'XD.AppendChild(root)
-        'For Each e In Elements
-        '    Dim XE = XD.CreateElement("Element")
-        '    XE.SetAttribute("Title", e.Title)
-        '    XE.SetAttribute("Type", e.Type.ToString)
-        '    XE.SetAttribute("Rotation", e.Rotation.ToString)
-        '    XE.SetAttribute("Location", e.Location.X.ToString & "," & e.Location.Y.ToString)
-        '    root.AppendChild(XE)
-        'Next
-
-        'For Each e In Lines
-        '    Dim XE = XD.CreateElement("Line")
-        '    XE.SetAttribute("Point1", e.Point1.X.ToString & "," & e.Point1.Y.ToString)
-        '    XE.SetAttribute("Point2", e.Point2.X.ToString & "," & e.Point2.Y.ToString)
-        '    root.AppendChild(XE)
-        'Next
-
-        'XD.Save(Filename)
     End Sub
 
     Private Sub 打开ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 打开ToolStripMenuItem.Click
@@ -204,18 +163,13 @@ Public Class frmMain
         'End Try
     End Sub
 
-    Function ToPoint(ByVal Src As String) As Point
-        'Dim PointVal = Split(Src, ",")
-        'Return New Point(CInt(PointVal(0)), CInt(PointVal(1)))
-    End Function
-
     Private Sub PrintToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripMenuItem.Click
         Throw New NotImplementedException
         'Printer.DocumentName = "电路图"
         'Printer.Print()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         If _engine IsNot Nothing Then
             Return
         End If
@@ -225,7 +179,7 @@ Public Class frmMain
         StartRendering()
     End Sub
 
-    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub btnStop_Click(sender As Object, e As EventArgs) Handles btnStop.Click
         If _engine Is Nothing Then
             Return
         End If
@@ -234,14 +188,11 @@ Public Class frmMain
         StopRendering()
     End Sub
 
-    Private Sub ToolStripStatusLabel3_Click(sender As Object, e As EventArgs) Handles ToolStripStatusLabel3.Click
-
-    End Sub
-
     Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
         _elements.Add(New NotGate("N1", New Point(50, 50) - _panel.Origin))
         _panel.Render()
         PropertyGrid1.SelectedObject = _panel.Elements(_panel.Elements.Count - 1)
 
     End Sub
+
 End Class
